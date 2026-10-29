@@ -1,0 +1,142 @@
+/* ==========================================================================
+   Схема зала — рисунок (общий для сайта и редактора)
+   ========================================================================== */
+
+.hall-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: "DIN Pro", system-ui, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.hall-floor { fill: #101814; stroke: rgb(242 233 218 / 0.28); stroke-width: 3; }
+.hall-grid-line { fill: none; stroke: rgb(242 233 218 / 0.06); stroke-width: 1; }
+.hall-hatch-line { stroke: rgb(242 233 218 / 0.12); stroke-width: 3; }
+
+/* Зоны */
+.hall-item--zone { --zone: #5f8a6f; }
+.hall-zone-area {
+    fill: var(--zone);
+    fill-opacity: 0.08;
+    stroke: var(--zone);
+    stroke-opacity: 0.5;
+    stroke-width: 1.5;
+    stroke-dasharray: 6 6;
+    transition: fill-opacity 0.3s, stroke-opacity 0.3s;
+}
+.hall-zone-name {
+    fill: var(--zone);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+/* Объекты */
+.hall-bar { fill: #5b3d24; stroke: #b48552; stroke-width: 1.5; }
+.hall-stool { fill: #2a2119; stroke: #b48552; stroke-width: 1.2; }
+.hall-stage { fill: #2c2233; stroke: #9a73b0; stroke-width: 1.5; }
+.hall-stage-lines { stroke: rgb(154 115 176 / 0.6); stroke-width: 2; fill: none; }
+.hall-fire { fill: #5a2a17; stroke: #e0873f; stroke-width: 1.5; }
+.hall-service { fill: #1c2621; stroke: rgb(242 233 218 / 0.25); stroke-width: 1.2; }
+.hall-service--hatch { fill: url(#hall-hatch); }
+.hall-door { fill: #d6a15a; }
+.hall-door-swing { fill: none; stroke: rgb(214 161 90 / 0.55); stroke-width: 1.2; stroke-dasharray: 4 4; }
+.hall-window { fill: #8fb7c9; opacity: 0.75; }
+.hall-wall { fill: rgb(242 233 218 / 0.45); }
+.hall-column { fill: rgb(242 233 218 / 0.35); }
+.hall-plant { fill: #24402f; stroke: #4f7a5c; stroke-width: 1.5; }
+.hall-plant-core { fill: #4f7a5c; }
+
+.hall-caption,
+.hall-label {
+    fill: rgb(242 233 218 / 0.7);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-anchor: middle;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+.hall-caption--strong { fill: #d9c3e6; font-size: 14px; }
+.hall-caption--side { font-size: 10px; letter-spacing: 0.08em; }
+.hall-caption--door { fill: #d6a15a; transform-box: fill-box; }
+.hall-item--entrance .hall-caption { transform: translateY(-22px); }
+.hall-item--fireplace .hall-caption { writing-mode: vertical-rl; }
+.hall-label { font-size: 14px; letter-spacing: 0.06em; text-transform: none; font-weight: 500; }
+
+/* Столы */
+.hall-table { --zone: #5f8a6f; cursor: pointer; }
+.hall-top {
+    fill: #22302a;
+    stroke: rgb(242 233 218 / 0.55);
+    stroke-width: 1.5;
+    transition: fill 0.25s, stroke 0.25s, stroke-width 0.25s;
+}
+.hall-chair {
+    fill: #1a2420;
+    stroke: rgb(242 233 218 / 0.35);
+    stroke-width: 1;
+    transition: fill 0.25s, stroke 0.25s;
+}
+.hall-sofa {
+    fill: #2b231c;
+    stroke: rgb(242 233 218 / 0.4);
+    stroke-width: 1.2;
+    transition: fill 0.25s, stroke 0.25s;
+}
+.hall-num {
+    fill: #f2e9da;
+    font-family: "DIN Pro", Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+/* ==========================================================================
+   Состояния на сайте
+   ========================================================================== */
+
+.hall-svg .hall-table { transition: opacity 0.3s; }
+.hall-table.is-fit .hall-top { fill: #2b3d33; stroke: var(--zone); stroke-width: 2.2; }
+.hall-table.is-fit .hall-chair { stroke: var(--zone); }
+.hall-table.is-fit .hall-sofa { stroke: var(--zone); }
+.hall-table.is-unfit { opacity: 0.32; cursor: not-allowed; }
+.hall-table.is-closed { opacity: 0.25; cursor: not-allowed; }
+
+.hall-table.is-fit:hover .hall-top,
+.hall-table.is-fit:focus-visible .hall-top { stroke: #e8b872; stroke-width: 3; }
+.hall-table:focus { outline: none; }
+.hall-table:focus-visible .hall-top { stroke: #e8b872; stroke-width: 3.5; }
+
+.hall-table.is-selected .hall-top { fill: #d6a15a; stroke: #f2d29f; stroke-width: 3; }
+.hall-table.is-selected .hall-chair,
+.hall-table.is-selected .hall-sofa { fill: #6b4b24; stroke: #e8b872; }
+.hall-table.is-selected .hall-num { fill: #1a130a; }
+
+/* Выбранный фильтр зоны: остальные зоны приглушены */
+.hall-svg.has-zone-filter .hall-item--zone:not(.is-active-zone) .hall-zone-area { fill-opacity: 0.02; stroke-opacity: 0.15; }
+.hall-svg.has-zone-filter .hall-item--zone.is-active-zone .hall-zone-area { fill-opacity: 0.16; stroke-opacity: 0.9; }
+.hall-svg.has-zone-filter .hall-table.is-other-zone { opacity: 0.3; }
+
+@keyframes hall-pick {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+.hall-table.is-selected .hall-top,
+.hall-table.is-selected .hall-sofa {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hall-pick 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hall-table.is-selected .hall-top,
+    .hall-table.is-selected .hall-sofa { animation: none; }
+}

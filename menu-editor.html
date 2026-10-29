@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Редактор меню — Бохо</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/fonts.css?v=1">
+    <link rel="stylesheet" href="assets/css/editor.css?v=5">
+</head>
+
+<body class="me">
+    <header class="ed-top">
+        <div class="ed-brand">
+            <a class="ed-logo" href="index.html">Boho</a>
+            <span class="ed-brand__title">Редактор меню</span>
+        </div>
+
+        <div class="ed-toolbar" role="toolbar" aria-label="Действия">
+            <button type="button" class="ed-btn ed-btn--icon" data-act="undo" title="Отменить (Ctrl+Z)" aria-label="Отменить">↶</button>
+            <button type="button" class="ed-btn ed-btn--icon" data-act="redo" title="Повторить (Ctrl+Shift+Z)" aria-label="Повторить">↷</button>
+            <span class="ed-sep" aria-hidden="true"></span>
+            <button type="button" class="ed-btn" data-act="photo-folder" title="Указать папку assets/img/menu — редактор будет сам копировать туда фото">Папка фото</button>
+            <button type="button" class="ed-btn" data-act="import" title="Открыть файл меню">Открыть…</button>
+            <button type="button" class="ed-btn" data-act="reset" title="Загрузить меню, которое сейчас на сайте">Меню с сайта</button>
+            <button type="button" class="ed-btn" data-act="preview" title="Открыть страницу меню с этими изменениями">Предпросмотр</button>
+            <button type="button" class="ed-btn ed-btn--accent" data-act="save" title="Сохранить (Ctrl+S)">Сохранить</button>
+            <button type="button" class="ed-btn ed-btn--icon" data-act="help" title="Как пользоваться" aria-label="Справка">?</button>
+        </div>
+    </header>
+
+    <main class="me-main">
+        <aside class="me-tree" aria-label="Разделы и категории">
+            <div class="me-block">
+                <div class="me-block__head"><h2>Разделы</h2><button type="button" class="ed-btn ed-btn--small" data-act="add-section">+ Раздел</button></div>
+                <ul class="me-list" data-sections></ul>
+            </div>
+            <div class="me-block">
+                <div class="me-block__head"><h2>Категории</h2><button type="button" class="ed-btn ed-btn--small" data-act="add-category">+ Категория</button></div>
+                <ul class="me-list" data-categories></ul>
+            </div>
+            <button type="button" class="me-settings" data-act="menu-settings">Настройки и проверка меню <span class="ed-badge" data-problems hidden></span></button>
+        </aside>
+
+        <section class="me-items" aria-label="Блюда">
+            <div class="me-items__head">
+                <div>
+                    <p class="me-crumbs" data-crumbs></p>
+                    <h1 class="me-items__title" data-items-title></h1>
+                </div>
+                <label class="me-search">
+                    <span class="sr-only">Поиск по всему меню</span>
+                    <input type="search" placeholder="Поиск по всему меню" data-search>
+                </label>
+                <button type="button" class="ed-btn ed-btn--accent" data-act="add-item">+ Блюдо</button>
+            </div>
+            <ul class="me-dishes" data-items aria-label="Блюда категории"></ul>
+            <p class="ed-status" id="status" role="status" aria-live="polite"></p>
+        </section>
+
+        <aside class="ed-inspector-wrap" aria-label="Свойства">
+            <div class="ed-inspector-head">Свойства</div>
+            <div id="inspector" class="ed-inspector"></div>
+        </aside>
+    </main>
+
+    <input id="file-input" type="file" accept=".js,.json,application/json,text/javascript" hidden>
+    <input id="photo-input" type="file" accept="image/*" hidden>
+
+    <dialog id="help" class="ed-help" aria-labelledby="help-title">
+        <button type="button" class="ed-help__close" data-help-close aria-label="Закрыть">×</button>
+        <h2 id="help-title">Как работать с меню</h2>
+        <ol class="ed-steps">
+            <li><b>Разделы</b> (Кухня, Бар, Кальян) — это вкладки на странице меню. У раздела есть вступительный текст и пометка «18+».</li>
+            <li><b>Категории</b> (Закуски, Супы, Коктейли…) — блоки внутри раздела. Порядок меняйте стрелками ↑ ↓.</li>
+            <li><b>Блюда.</b> Выберите категорию, нажмите «+ Блюдо» и заполните справа название, описание, цену, выход и метки. Порядок блюд — перетаскиванием строки или стрелками.</li>
+            <li><b>Фото.</b> Нажмите «Папка фото» и один раз укажите папку <code>assets/img/menu</code> сайта — после этого выбранные фото будут копироваться туда автоматически (Chrome/Edge). В других браузерах скопируйте файл в эту папку вручную — путь редактор подставит сам. Можно также вставить ссылку на фото из интернета.</li>
+            <li><b>Временно нет блюда</b> — галочка «Нет в наличии» (блюдо видно, но серое). «Скрыть с сайта» — не показывать совсем.</li>
+            <li><b>Предпросмотр</b> откроет страницу меню с изменениями, не меняя опубликованное.</li>
+            <li><b>Сохранение.</b> «Сохранить» → выберите файл <code>assets/js/menu-data.js</code> в папке сайта и разрешите изменение. Если браузер не умеет сохранять напрямую — файл скачается, замените им <code>assets/js/menu-data.js</code>.</li>
+        </ol>
+        <h3>Горячие клавиши</h3>
+        <ul class="ed-keys">
+            <li><kbd>Ctrl+Z</kbd> отменить · <kbd>Ctrl+Shift+Z</kbd> повторить · <kbd>Ctrl+S</kbd> сохранить</li>
+            <li><kbd>Ctrl+D</kbd> дублировать блюдо · <kbd>Delete</kbd> удалить блюдо (когда курсор не в поле ввода)</li>
+            <li><kbd>Alt+↑</kbd> / <kbd>Alt+↓</kbd> переместить блюдо выше или ниже</li>
+        </ul>
+        <p class="ed-note">Черновик автоматически сохраняется в этом браузере — можно закрыть вкладку и продолжить позже.</p>
+    </dialog>
+
+    <script src="assets/js/menu-data.js?v=2"></script>
+    <script src="assets/js/menu-core.js?v=1"></script>
+    <script src="assets/js/file-save.js?v=1"></script>
+    <script src="assets/js/menu-editor.js?v=1"></script>
+</body>
+
+</html>

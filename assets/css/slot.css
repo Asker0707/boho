@@ -1,0 +1,704 @@
+/* ==========================================================================
+   ИСПЫТАЙ УДАЧУ — слот-машина
+   Корпус — двойная арка (мотив сайта). Всё, что движется, анимируется
+   только через transform/opacity: полосы барабанов (translateY), три слоя
+   огней (opacity), бегущая строка, вспышка, конфетти. Без blur-фильтров.
+   ========================================================================== */
+
+.lucky {
+    padding: var(--section) var(--gutter) clamp(3rem, 6vw, 6rem);
+    /* конфетти не должно раздувать страницу */
+    overflow: clip;
+}
+.lucky__lead { max-width: 34rem; }
+
+.lucky__layout {
+    display: grid;
+    gap: 3.5rem;
+    justify-items: center;
+}
+@media (min-width: 1024px) {
+    .lucky__layout {
+        grid-template-columns: auto minmax(18rem, 26rem);
+        justify-content: center;
+        align-items: center;
+        gap: clamp(3rem, 6vw, 7rem);
+    }
+}
+
+/* ---------- Корпус ---------- */
+
+.slot {
+    --lever-w: 2.25rem;
+    --w: min(30rem, calc(100vw - 2 * var(--gutter) - var(--lever-w)));
+    --bezel: calc(var(--w) * 0.07);
+    /* высота ячейки ≈ ширина барабана: (внутренняя ширина окна − зазоры) / 3 */
+    --cell: calc((var(--w) * 0.77 - 24px) / 3 * 0.9);
+    position: relative;
+    width: calc(var(--w) + var(--lever-w));
+    padding-right: var(--lever-w);
+}
+@media (min-width: 768px) {
+    .slot { --lever-w: 3.25rem; }
+}
+
+.slot__cabinet {
+    position: relative;
+    width: var(--w);
+    padding: var(--bezel);
+    border-radius: 999px 999px 2rem 2rem;
+    border: 1px solid rgb(214 161 90 / 0.55);
+    background:
+        radial-gradient(120% 55% at 50% 0%, #24392e 0%, #14211b 55%, #0b120e 100%);
+    box-shadow:
+        0 40px 80px rgb(0 0 0 / 0.55),
+        inset 0 0 0 5px rgb(14 20 17 / 0.55),
+        inset 0 2px 0 rgb(232 184 114 / 0.25);
+    /* свой слой заранее: тряска на джекпоте не тратит кадр на перерисовку корпуса */
+    will-change: transform;
+}
+
+.slot__panel {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: calc(var(--w) * 0.03);
+    padding: 0 calc(var(--w) * 0.045) calc(var(--w) * 0.045);
+    border-radius: 999px 999px 1.25rem 1.25rem;
+    border: 1px solid rgb(214 161 90 / 0.35);
+    background: linear-gradient(#1b2b23, #101914);
+}
+
+/* Венец автомата: логотип-джекпот под аркой и лучи */
+.slot__crown {
+    position: relative;
+    display: grid;
+    place-items: end center;
+    aspect-ratio: 2.3 / 1;
+    padding-bottom: 0.25rem;
+}
+.slot__crown::before {
+    content: "";
+    position: absolute;
+    inset: 0 -4.5% 0;
+    border-radius: 999px 999px 0 0;
+    background: repeating-conic-gradient(from -90deg at 50% 100%, rgb(214 161 90 / 0.1) 0 6deg, transparent 6deg 12deg);
+    -webkit-mask: linear-gradient(to top, #000 30%, transparent 95%);
+    mask: linear-gradient(to top, #000 30%, transparent 95%);
+}
+.slot__emblem {
+    position: relative;
+    width: 38%;
+    height: auto;
+    aspect-ratio: 1;
+}
+
+/* ---------- Табло с бегущей строкой ---------- */
+
+.slot__ticker {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: max(2rem, calc(var(--w) * 0.075));
+    overflow: hidden;
+    border-radius: 999px;
+    border: 1px solid rgb(214 161 90 / 0.3);
+    background: #070b09;
+    box-shadow: inset 0 0 14px rgb(0 0 0 / 0.85);
+}
+.slot__ticker-track {
+    display: flex;
+    flex: none;
+    white-space: nowrap;
+    will-change: transform;
+}
+.slot__ticker-track span {
+    /* разделитель «✦» с пробелами уже в тексте, поэтому пробелы не схлопываем */
+    white-space: pre;
+    font-size: clamp(0.625rem, calc(var(--w) * 0.024), 0.75rem);
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber-hi);
+    text-shadow: 0 0 8px rgb(232 184 114 / 0.55);
+}
+.slot.is-visible .slot__ticker-track {
+    animation: slot-ticker var(--ticker-dur, 16s) linear infinite;
+}
+/* Короткие статусы («Крутим…») стоят на месте, как на табло */
+.slot__ticker.is-static { justify-content: center; }
+.slot__ticker.is-static .slot__ticker-track { animation: none !important; }
+.slot__ticker.is-static .slot__ticker-track span { padding: 0 0 0 0.22em; }
+.slot__ticker.is-static .slot__ticker-track span + span { display: none; }
+@keyframes slot-ticker { to { transform: translate3d(-50%, 0, 0); } }
+
+/* ---------- Окно барабанов ---------- */
+
+.slot__window {
+    position: relative;
+    padding: 6px;
+    border-radius: 1rem;
+    border: 1px solid rgb(214 161 90 / 0.5);
+    background: #060a08;
+    box-shadow: 0 0 0 4px rgb(10 15 12 / 0.9), inset 0 0 0 1px rgb(0 0 0 / 0.6);
+}
+.slot__reels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+.reel {
+    position: relative;
+    height: calc(var(--cell) * 3);
+    overflow: hidden;
+    border-radius: 0.6rem;
+    background: linear-gradient(90deg, #0e1713, #1d2d25 50%, #0e1713);
+}
+/* Объём барабана: тень сверху и снизу поверх полос (не двигается) */
+.reel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(#050806 0%, rgb(5 8 6 / 0) 32%, rgb(5 8 6 / 0) 68%, #050806 100%);
+    pointer-events: none;
+}
+/* Интрига: рамка третьего барабана мигает, пока он медленно тормозит */
+.reel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 2px var(--amber-hi), inset 0 0 24px rgb(232 184 114 / 0.4);
+    opacity: 0;
+    pointer-events: none;
+}
+.reel.is-tease::before { animation: slot-blink 0.5s linear infinite; }
+.reduced-motion .reel.is-tease::before { animation: none; opacity: 1; }
+.reel::after { z-index: 1; }
+
+.reel__strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    will-change: transform;
+}
+.reel__strip--blur { opacity: 0; }
+.reel__cell {
+    display: grid;
+    place-items: center;
+    height: var(--cell);
+}
+.reel__cell svg,
+.slot__win svg {
+    width: 76%;
+    height: 76%;
+    overflow: visible;
+}
+
+/* Выигрышная линия: тонкая рамка центрального ряда и стрелки по краям */
+.slot__payline {
+    position: absolute;
+    top: 50%;
+    left: -11px;
+    right: -11px;
+    height: var(--cell);
+    margin-top: calc(var(--cell) / -2);
+    pointer-events: none;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 12'%3E%3Cpath d='M0 0l8 6-8 6z' fill='%23d6a15a'/%3E%3C/svg%3E") left center / 7px 11px no-repeat,
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 12'%3E%3Cpath d='M8 0L0 6l8 6z' fill='%23d6a15a'/%3E%3C/svg%3E") right center / 7px 11px no-repeat;
+}
+.slot__payline::before,
+.slot__payline::after {
+    content: "";
+    position: absolute;
+    inset: 0 13px;
+    border-radius: 0.5rem;
+}
+.slot__payline::before {
+    border-top: 1px solid rgb(214 161 90 / 0.28);
+    border-bottom: 1px solid rgb(214 161 90 / 0.28);
+}
+.slot__payline::after {
+    border: 2px solid var(--amber-hi);
+    box-shadow: 0 0 18px rgb(232 184 114 / 0.55), inset 0 0 22px rgb(232 184 114 / 0.3);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.slot.is-win .slot__payline::after,
+.slot.is-jackpot .slot__payline::after {
+    opacity: 1;
+    animation: slot-payline 0.5s steps(1, end) infinite;
+}
+.slot.is-near .slot__payline::after { opacity: 0.35; }
+@keyframes slot-payline { 50% { opacity: 0.45; } }
+
+/* Выигрышные символы — копии поверх барабанов, чтобы анимировать их отдельно */
+.slot__wins {
+    position: absolute;
+    inset: 6px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    pointer-events: none;
+}
+.slot__win {
+    position: relative;
+    align-self: center;
+    display: grid;
+    place-items: center;
+    height: var(--cell);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+.slot__win::before {
+    content: "";
+    position: absolute;
+    inset: -12% -6%;
+    background: radial-gradient(closest-side, rgb(232 184 114 / 0.45), rgb(232 184 114 / 0.12) 60%, transparent);
+}
+.slot__win svg { position: relative; }
+
+/* ---------- Кнопки и попытки ---------- */
+
+.slot__controls {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: calc(var(--w) * 0.015);
+}
+.slot__tries-text { min-height: 2.6em; }
+.slot__tries {
+    display: grid;
+    gap: 0.4rem;
+    justify-items: start;
+    font-size: 0.6875rem;
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    color: var(--cream-3);
+}
+.slot__lamps { display: flex; gap: 0.35rem; }
+.slot__lamp {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: #2a3830;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.6);
+}
+.slot__lamp.is-on {
+    background: radial-gradient(circle at 40% 35%, #fff3d6, var(--amber-hi) 45%, var(--amber));
+    box-shadow: 0 0 8px rgb(232 184 114 / 0.7);
+}
+
+.slot__spin {
+    min-width: 8.5rem;
+    min-height: 3.75rem;
+    padding: 0.35rem 1.5rem 0;
+    border-radius: 999px 999px 1rem 1rem;
+    background: linear-gradient(var(--amber-hi), var(--amber));
+    color: var(--on-amber);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    box-shadow:
+        0 6px 0 #8a6232,
+        0 14px 24px rgb(0 0 0 / 0.45),
+        inset 0 1px 0 rgb(255 255 255 / 0.35);
+    transition: transform 0.12s, box-shadow 0.12s, background-color 0.2s;
+}
+.slot__spin:hover:not(:disabled) { background: linear-gradient(#f0c788, var(--amber-hi)); }
+.slot__spin:active:not(:disabled) {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #8a6232, 0 8px 16px rgb(0 0 0 / 0.45), inset 0 1px 0 rgb(255 255 255 / 0.35);
+}
+.slot__spin:disabled {
+    cursor: default;
+    background: #2f2a21;
+    color: var(--cream-3);
+    box-shadow: 0 6px 0 #1e1a14, 0 14px 24px rgb(0 0 0 / 0.35);
+}
+.slot.is-busy .slot__spin:disabled { background: linear-gradient(#b98a4d, #9a7240); color: var(--on-amber); }
+
+.slot__sound {
+    justify-self: end;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    color: var(--cream-2);
+    transition: border-color 0.2s, color 0.2s;
+}
+.slot__sound:hover { border-color: var(--amber); color: var(--amber-hi); }
+.slot__sound svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.slot__sound-body { fill: currentColor; }
+.slot__sound[aria-pressed="false"] .slot__sound-on,
+.slot__sound[aria-pressed="true"] .slot__sound-off { display: none; }
+.slot__sound[aria-pressed="true"] { border-color: var(--amber); color: var(--amber-hi); }
+
+@media (max-width: 479px) {
+    .slot__controls { grid-template-columns: 1fr auto; }
+    .slot__spin { grid-column: 1 / -1; grid-row: 2; justify-self: center; width: min(100%, 14rem); }
+}
+
+/* ---------- Рычаг ---------- */
+
+.slot__lever {
+    position: absolute;
+    top: 38%;
+    right: 0;
+    width: var(--lever-w);
+    height: calc(var(--w) * 0.5);
+    touch-action: none;
+    cursor: grab;
+    will-change: transform;
+    -webkit-tap-highlight-color: transparent;
+}
+.slot__lever:active { cursor: grabbing; }
+.slot__lever-base {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 72%;
+    height: 4.5rem;
+    border-radius: 0 0.9rem 0.9rem 0;
+    border: 1px solid rgb(214 161 90 / 0.5);
+    border-left: 0;
+    background: linear-gradient(90deg, #22301f00, #3a2c1b 20%, #6b4d2a 55%, #33271a);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 0.45);
+}
+.slot__lever-arm {
+    position: absolute;
+    left: 36%;
+    bottom: 2.25rem;
+    width: 6px;
+    height: calc(100% - 3rem);
+    margin-left: -3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #8f8573, #f2e9da 45%, #8f8573);
+    transform-origin: 50% 100%;
+    will-change: transform;
+}
+.slot__lever-knob {
+    position: absolute;
+    left: 36%;
+    top: 0.75rem;
+    width: calc(var(--lever-w) * 0.82);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe6b3, var(--amber-hi) 28%, var(--amber) 55%, #7a5326);
+    box-shadow: 0 6px 12px rgb(0 0 0 / 0.5);
+    transform: translate(-50%, -50%);
+    will-change: transform;
+}
+
+/* ---------- Огни по периметру ---------- */
+
+.slot__lights {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+.slot__bulbs { position: absolute; inset: 0; }
+.slot__bulb {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    margin: -3.5px 0 0 -3.5px;
+    border-radius: 50%;
+    background: #4d3c22;
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 0.5);
+}
+/* --chase задаётся только на слоях огней: переменная на корне автомата
+   заставила бы браузер пересчитывать стили всех символов барабанов */
+.slot__bulbs--lit { --chase: 2.4s; opacity: 0; will-change: opacity; }
+.slot__bulbs--lit .slot__bulb {
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    background: radial-gradient(circle, #fff6df 0 18%, var(--amber-hi) 32%, rgb(232 184 114 / 0.3) 52%, transparent 70%);
+    box-shadow: none;
+}
+
+/* Покой: огни мягко перетекают по кругу; три группы со сдвигом фазы */
+.slot.is-visible .slot__bulbs--lit { animation: slot-chase-soft var(--chase) ease-in-out infinite; }
+.slot.is-visible .slot__bulbs--b { animation-delay: calc(var(--chase) * -0.6667); }
+.slot.is-visible .slot__bulbs--c { animation-delay: calc(var(--chase) * -0.3333); }
+
+/* Вращение и интрига: быстрый «бегущий» свет */
+.slot.is-spinning .slot__bulbs--lit { --chase: 0.42s; }
+.slot.is-tease .slot__bulbs--lit { --chase: 0.24s; }
+.slot.is-near .slot__bulbs--lit { --chase: 0.9s; }
+.slot.is-visible.is-spinning .slot__bulbs--lit,
+.slot.is-visible.is-tease .slot__bulbs--lit,
+.slot.is-visible.is-near .slot__bulbs--lit { animation-name: slot-chase; animation-timing-function: linear; }
+
+/* Выигрыш: группы мигают вперемешку */
+.slot.is-win .slot__bulbs--lit { --chase: 0.6s; }
+.slot.is-jackpot .slot__bulbs--lit { --chase: 0.26s; }
+.slot.is-visible.is-win .slot__bulbs--lit,
+.slot.is-visible.is-jackpot .slot__bulbs--lit { animation-name: slot-blink; animation-timing-function: linear; animation-delay: 0s; }
+.slot.is-visible.is-win .slot__bulbs--b,
+.slot.is-visible.is-jackpot .slot__bulbs--b { animation-delay: calc(var(--chase) * -0.5); }
+
+@keyframes slot-chase-soft {
+    0%, 100% { opacity: 0; }
+    16% { opacity: 0.9; }
+    40% { opacity: 0; }
+}
+@keyframes slot-chase {
+    0%, 33.32% { opacity: 1; }
+    33.33%, 100% { opacity: 0; }
+}
+@keyframes slot-blink {
+    0%, 49.99% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+/* ---------- Вспышка и частицы ---------- */
+
+.slot__flash {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: inherit;
+    background: radial-gradient(60% 42% at 50% 58%, rgb(255 238 205 / 0.6), rgb(232 184 114 / 0.22) 50%, transparent 75%);
+    /* не ноль: слой заранее отрисован, и первая вспышка не тратит кадр на растр */
+    opacity: 0.001;
+    pointer-events: none;
+    will-change: opacity;
+}
+.slot__fx {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+.fx {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+.fx--coin {
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff1cc, var(--amber-hi) 35%, var(--amber) 62%, #8a5f2c);
+    box-shadow: inset 0 0 0 2px rgb(122 83 38 / 0.55);
+}
+.fx--paper {
+    width: 8px;
+    height: 14px;
+    margin: -7px 0 0 -4px;
+    border-radius: 2px;
+    background: var(--fx-color, var(--amber));
+}
+
+/* ---------- Таблица выигрышей ---------- */
+
+.lucky__aside {
+    display: grid;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 30rem;
+}
+.paytable { border-top: 1px solid var(--line); }
+.paytable__row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--line);
+}
+.paytable__symbols {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 2px;
+    max-width: 6.5rem;
+}
+.paytable__symbols svg { width: 2rem; height: 2rem; }
+.paytable__or {
+    width: 100%;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    color: var(--cream-3);
+}
+.paytable__prize {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.2;
+    color: var(--cream);
+}
+.paytable__row--jackpot .paytable__prize { color: var(--amber-hi); }
+.paytable__chance {
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--cream-3);
+    white-space: nowrap;
+}
+.lucky__rules {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--cream-3);
+    text-wrap: pretty;
+}
+.lucky__mine {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1rem 1.25rem;
+    border: 1px dashed rgb(214 161 90 / 0.55);
+    border-radius: var(--radius);
+    background: rgb(214 161 90 / 0.05);
+}
+.lucky__mine[hidden] { display: none; }
+.lucky__mine-code {
+    justify-self: start;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--amber-hi);
+    text-align: left;
+}
+.lucky__mine-code span {
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--cream-2);
+    border-bottom: 1px solid var(--line-strong);
+}
+
+/* ---------- Окно приза ---------- */
+
+.prize {
+    width: min(30rem, calc(100% - 2rem));
+    max-height: calc(100svh - 2rem);
+    padding: 0;
+    border: 1px solid rgb(214 161 90 / 0.45);
+    border-radius: 1.5rem;
+    background: radial-gradient(120% 60% at 50% 0%, #22362c, var(--bg-raised) 65%);
+    color: var(--cream);
+    /* без большой размытой тени: фон и так затемнён, а растр окна дешевле */
+    box-shadow: 0 0 0 6px rgb(14 20 17 / 0.6);
+}
+/* Без backdrop-filter: за окном ещё доигрывают огни и конфетти */
+.prize::backdrop { background: rgb(5 8 6 / 0.8); }
+.prize[open] { animation: booking-in 0.45s var(--ease-out); }
+.prize__card {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 0.9rem;
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+    text-align: center;
+}
+.prize__badge {
+    display: grid;
+    place-items: center;
+    width: 8.5rem;
+    aspect-ratio: 5 / 6;
+    border-radius: 999px 999px 1rem 1rem;
+    border: 1px solid rgb(214 161 90 / 0.5);
+    background:
+        repeating-conic-gradient(from -90deg at 50% 100%, rgb(214 161 90 / 0.13) 0 7deg, transparent 7deg 14deg),
+        linear-gradient(#22362c, #111b16);
+    will-change: transform;
+}
+.prize[open] .prize__badge { animation: prize-badge 0.7s cubic-bezier(0.34, 1.7, 0.64, 1) 0.1s both; }
+@keyframes prize-badge { from { opacity: 0; transform: scale(0.6) rotate(-8deg); } }
+.prize__badge svg { width: 74%; height: auto; aspect-ratio: 1; margin-top: 12%; }
+.prize .t-h1 { font-size: clamp(2rem, 7vw, 2.75rem); }
+.prize__ticket {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.2rem 1rem;
+    width: 100%;
+    margin-top: 0.25rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px dashed rgb(214 161 90 / 0.6);
+    border-radius: 0.9rem;
+    background: rgb(214 161 90 / 0.06);
+    text-align: left;
+}
+.prize__label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-3);
+}
+.prize__code {
+    grid-column: 1;
+    font-size: clamp(1.05rem, 4.8vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    color: var(--amber-hi);
+    white-space: nowrap;
+}
+.prize__copy {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    padding: 0.6rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+}
+.prize__copy:hover { border-color: var(--amber); color: var(--amber-hi); }
+.prize__note { font-size: 0.8125rem; color: var(--cream-3); }
+.prize__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+/* ---------- Служебное ---------- */
+
+.slot__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+.slot-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+/* Меньше движения: огни горят ровно, строка не бежит */
+.reduced-motion .slot__bulbs--lit { animation: none !important; }
+.reduced-motion .slot__bulbs--a,
+.reduced-motion .slot__bulbs--c { opacity: 0.55; }
+.reduced-motion .slot.is-win .slot__bulbs--lit,
+.reduced-motion .slot.is-jackpot .slot__bulbs--lit { opacity: 1; }
+.reduced-motion .slot__payline::after { animation: none !important; }
+.reduced-motion .slot__ticker { justify-content: center; }
+.reduced-motion .slot__ticker-track { animation: none !important; }
+.reduced-motion .slot__ticker-track span + span { display: none; }

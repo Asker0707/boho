@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- Тестовая версия на GitHub Pages: не индексировать. Убрать перед запуском на настоящем домене -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0e1411">
+    <title>Меню — Бохо</title>
+    <meta name="description" content="Меню Бохо: кухня, бар и кальян. Авторские блюда, коктейли и кальяны на фруктах.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+    <link rel="preload" href="assets/fonts/DINPro-Light.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/DINPro-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/fonts.css?v=1">
+
+    <link rel="stylesheet" href="assets/css/boho.css?v=33">
+    <link rel="stylesheet" href="assets/css/menu.css?v=2">
+    <script>document.documentElement.classList.replace('no-js', 'js')</script>
+</head>
+
+<body class="menu-page">
+    <a class="skip-link" href="#menu-content">К меню</a>
+
+    <header class="site-header menu-header">
+        <a class="logo" href="index.html" aria-label="Бохо — на главную">Boho</a>
+        <div></div>
+        <div class="site-header__actions">
+            <a class="tab tab--ghost" href="index.html" aria-label="На главную">
+                <svg class="tab__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+                <span class="tab__label">На главную</span>
+            </a>
+            <a class="tab tab--accent" href="index.html#booking" aria-label="Забронировать стол">
+                <svg class="tab__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+                <span class="tab__label">Бронь</span>
+            </a>
+        </div>
+    </header>
+
+    <main id="menu-content" class="menu">
+        <section class="menu-hero">
+            <p class="eyebrow">Ресторан · Бар · Кальян</p>
+            <h1 class="menu-hero__title">Меню</h1>
+            <p class="menu-hero__note" data-menu-note></p>
+
+            <div class="menu-tabs" role="tablist" aria-label="Разделы меню" data-menu-tabs></div>
+        </section>
+
+        <div class="menu-toolbar" data-menu-toolbar>
+            <nav class="menu-cats" aria-label="Категории" data-menu-cats></nav>
+            <div class="menu-tools">
+                <label class="menu-search">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+                    <span class="sr-only">Поиск по меню</span>
+                    <input type="search" placeholder="Найти блюдо или напиток" data-menu-search autocomplete="off">
+                </label>
+                <div class="menu-filters" role="group" aria-label="Фильтры" data-menu-filters></div>
+            </div>
+        </div>
+
+        <p class="menu-adult" data-menu-adult hidden>18+ Алкоголь и кальян — только для гостей старше 18 лет.</p>
+
+        <div class="menu-list" data-menu-list aria-live="polite"></div>
+
+        <section class="menu-cta">
+            <p class="eyebrow">Ждём вас</p>
+            <h2 class="t-h1">Забронируйте стол</h2>
+            <p class="t-body">Выберите столик на схеме зала — у камина, в кальянном лаунже или у сцены.</p>
+            <a class="btn btn--accent" href="index.html#booking">Забронировать</a>
+        </section>
+    </main>
+
+    <footer class="menu-footer">
+        <a class="logo" href="index.html">Boho</a>
+        <p>Цены указаны в рублях. Информацию об аллергенах уточняйте у официанта.</p>
+    </footer>
+
+    <dialog class="dish-dialog" data-dish-dialog aria-labelledby="dish-title">
+        <button type="button" class="booking__close dish-dialog__close" data-dish-close aria-label="Закрыть"></button>
+        <div class="dish-dialog__media" data-dish-media></div>
+        <div class="dish-dialog__body">
+            <p class="eyebrow" data-dish-category></p>
+            <h2 id="dish-title" class="dish-dialog__title" data-dish-title></h2>
+            <ul class="dish-tags" data-dish-tags></ul>
+            <p class="dish-dialog__desc" data-dish-desc></p>
+            <div class="dish-dialog__meta">
+                <span data-dish-unit></span>
+                <b data-dish-price></b>
+            </div>
+        </div>
+    </dialog>
+
+    <script src="assets/js/menu-data.js?v=2"></script>
+    <script src="assets/js/menu-core.js?v=1"></script>
+    <script src="assets/js/menu.js?v=1"></script>
+</body>
+
+</html>

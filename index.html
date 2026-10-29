@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="ru" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- Тестовая версия на GitHub Pages: не индексировать. Убрать перед запуском на настоящем домене -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0e1411">
+    <title>Бохо — ресторан, лаунж и караоке в Москве</title>
+    <meta name="description" content="Бохо — ресторан с кальянным лаунжем и караоке в Москве: бархатные диваны, камин, авторские коктейли и кухня, которую хочется повторить. Бронирование столов.">
+
+    <!-- TODO: заменить домен на реальный, когда он появится -->
+    <meta property="og:title" content="Бохо — ресторан, кальян и караоке">
+    <meta property="og:description" content="Бархатные диваны, живой огонь камина, кальян и караоке до поздней ночи.">
+    <meta property="og:image" content="assets/img/zal.jpg">
+    <meta property="og:image:alt" content="Зал ресторана Бохо">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+    <!-- Шрифты: DIN Pro, локально (assets/fonts) -->
+    <link rel="preload" href="assets/fonts/DINPro-Light.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/DINPro-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/fonts.css?v=1">
+
+    <link rel="stylesheet" href="assets/css/hall.css?v=3">
+    <link rel="stylesheet" href="assets/css/boho.css?v=33">
+    <link rel="stylesheet" href="assets/css/slot.css?v=6">
+    <link rel="stylesheet" href="assets/css/lucky.css?v=4">
+    <link rel="stylesheet" href="assets/css/gallery.css?v=2">
+    <script>document.documentElement.classList.replace('no-js', 'js')</script>
+</head>
+
+<body>
+    <a class="skip-link" href="#content">К содержимому</a>
+
+    <header id="header" class="site-header">
+        <a class="logo" href="#top" aria-label="Бохо — в начало">Boho</a>
+
+        <div class="site-header__center">
+            <button id="menu-button" class="menu-button" type="button" aria-controls="nav" aria-expanded="false" aria-label="Открыть меню">
+                <span class="menu-button__lines" aria-hidden="true"></span>
+            </button>
+        </div>
+
+        <div class="site-header__actions">
+            <!-- TODO: ссылка на доставку -->
+            <a class="tab tab--ghost cta-hover" href="#" data-todo="Доставка" aria-label="Доставка">
+                <svg class="tab__icon cta-hover-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+                <span class="tab__label cta-hover-label">Доставка</span>
+            </a>
+            <button class="tab tab--accent cta-hover" type="button" data-booking aria-label="Забронировать стол">
+                <svg class="tab__icon cta-hover-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+                <span class="tab__label cta-hover-label">Бронь</span>
+            </button>
+        </div>
+    </header>
+
+    <a class="menu-tab cta-hover" href="menu.html">
+        <span class="cta-hover-label">Меню</span>
+    </a>
+
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+            <main id="content">
+
+                <!-- ============ HERO: название с анимацией букв; при прокрутке буквы разлетаются ============ -->
+                <section id="top" class="hero">
+                    <div class="hero__glow" aria-hidden="true"></div>
+                    <div class="hero__title">
+                        <p class="eyebrow hero__eyebrow">Ресторан · Лаундж · Караоке</p>
+                        <h1 class="hero__word">Boho</h1>
+                        <span class="hero__line" aria-hidden="true"></span>
+                    </div>
+                    <p class="hero__hint" aria-hidden="true">Листайте</p>
+                </section>
+
+                <!-- ============ СЦЕНА «Входите»: двери распахиваются, камера проходит в зал (слои по глубине — приём из grow-lesson) ============ -->
+                <section id="scene" class="scene" aria-labelledby="scene-title">
+                    <div class="scene__stage" data-scene>
+                        <div class="scene__layer scene__layer--back" data-depth="0.1">
+                            <img src="assets/img/zal.webp" width="1920" height="1280" loading="lazy" decoding="async" alt="Зал Бохо за арочным проёмом">
+                        </div>
+                        <div class="scene__layer scene__layer--lights" data-depth="0.3" aria-hidden="true">
+                            <img src="assets/img/scene/lights.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="">
+                        </div>
+                        <div class="scene__layer scene__layer--smoke" data-depth="0.45" aria-hidden="true">
+                            <img src="assets/img/scene/smoke.webp" width="1920" height="1200" loading="lazy" decoding="async" alt="">
+                        </div>
+                        <div class="scene__portal" data-depth="0.6" aria-hidden="true">
+                            <div class="scene__wall"></div>
+                            <div class="scene__floor"><div class="scene__carpet"></div></div>
+                            <div class="scene__doors">
+                                <div class="scene__glow"></div>
+                                <div class="scene__door scene__door--left"><span class="scene__handle"></span><span class="scene__door-shade"></span></div>
+                                <div class="scene__door scene__door--right"><span class="scene__handle"></span><span class="scene__door-shade"></span></div>
+                                <span class="scene__gap"></span>
+                            </div>
+                            <div class="scene__trim"></div>
+                            <!-- Человечек Бохо (по образу boho-character.jpg): сначала стоит лицом и машет,
+                                 потом разворачивается и бежит в двери, врезается и падает — от удара двери открываются -->
+                            <div class="scene__guy">
+                                <span class="scene__guy-shadow"></span>
+                                <div class="scene__guy-bob">
+                                    <div class="scene__guy-body">
+                                        <svg class="scene__guy-front" viewBox="0 0 120 200">
+                                            <path d="M38 120 39 184h18l3-52 3 52h18l1-64z" fill="#2b3036"/>
+                                            <path d="M60 132v44" stroke="#1d2126" stroke-width="1.5"/>
+                                            <path d="M35 182h23a3 3 0 0 1 3 3v3a2 2 0 0 1-2 2H33a2 2 0 0 1-2-2v-1a5 5 0 0 1 4-5z" fill="#ece6da"/>
+                                            <path d="M62 182h23a5 5 0 0 1 4 5v1a2 2 0 0 1-2 2H61a2 2 0 0 1-2-2v-3a3 3 0 0 1 3-3z" fill="#ece6da"/>
+                                            <path d="M31 188h30M59 188h30" stroke="#b9ad98" stroke-width="2"/>
+                                            <path d="M32 84c-5 12-6 22-5 32" fill="none" stroke="#dca37a" stroke-width="9" stroke-linecap="round"/>
+                                            <circle cx="27" cy="119" r="5.5" fill="#dca37a"/>
+                                            <!-- машущая рука: плечо (начало координат — в плече) и вложенное предплечье (начало — в локте) -->
+                                            <g transform="translate(87 83)">
+                                                <g class="scene__guy-arm">
+                                                    <path d="M0 0c4-4 7-9 9-14" fill="none" stroke="#dca37a" stroke-width="9" stroke-linecap="round"/>
+                                                    <g transform="translate(9 -14)">
+                                                        <g class="scene__guy-forearm">
+                                                            <path d="M0 0c1-6 2-11 2-15" fill="none" stroke="#dca37a" stroke-width="8.5" stroke-linecap="round"/>
+                                                            <ellipse cx="2" cy="-20" rx="5.5" ry="6.5" fill="#dca37a"/>
+                                                            <path d="M-2.5-24v-5M0.5-25.5v-6.5M3.5-25.5v-6M6.5-24v-4.5" stroke="#dca37a" stroke-width="2.5" stroke-linecap="round"/>
+                                                            <path d="M-3-18-7.5-22.5" stroke="#dca37a" stroke-width="2.8" stroke-linecap="round"/>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                            <path d="M38 68q22-6 44 0l12 14-8 10h-2v32q-24 6-48 0V92h-2l-8-10z" fill="#efe6d6"/>
+                                            <path d="M50 66q10 8 20 0" fill="none" stroke="#d9ccb7" stroke-width="2"/>
+                                            <path d="M84 92v-4M36 92v-4" stroke="#d9ccb7" stroke-width="1.5"/>
+                                            <path d="M52 58h16v10q-8 6-16 0z" fill="#c98f66"/>
+                                            <ellipse cx="38" cy="43" rx="4.5" ry="6.5" fill="#d29a70"/>
+                                            <ellipse cx="82" cy="43" rx="4.5" ry="6.5" fill="#d29a70"/>
+                                            <ellipse cx="60" cy="42" rx="21" ry="23" fill="#e0a77c"/>
+                                            <path d="M39 44q1 22 21 26 20-4 21-26-3 10-9 13-12-5-24 0-6-3-9-13z" fill="#2b1d15"/>
+                                            <path d="M52 59q8 5 16 0-8 2-16 0z" fill="#f4ede2"/>
+                                            <path d="M60 45q-3 7 0 9 3 0 4-1" fill="none" stroke="#b97d55" stroke-width="1.6" stroke-linecap="round"/>
+                                            <path d="M44 33q6-4 13-1M63 32q7-3 13 1" fill="none" stroke="#2b1d15" stroke-width="3" stroke-linecap="round"/>
+                                            <rect x="42.5" y="36" width="15" height="11" rx="3" fill="#fff" fill-opacity=".14" stroke="#141414" stroke-width="2.4"/>
+                                            <rect x="62.5" y="36" width="15" height="11" rx="3" fill="#fff" fill-opacity=".14" stroke="#141414" stroke-width="2.4"/>
+                                            <path d="M57.5 40h5M42.5 39l-4-1M77.5 39l4-1" stroke="#141414" stroke-width="2"/>
+                                            <circle cx="50" cy="42" r="2.2" fill="#2b1d15"/>
+                                            <circle cx="70" cy="42" r="2.2" fill="#2b1d15"/>
+                                            <path d="M38 34q-1-20 22-21 23 1 22 21-22-6-44 0z" fill="#6c7256"/>
+                                            <path d="M60 13v17" stroke="#5a5f47" stroke-width="1.4"/>
+                                            <circle cx="60" cy="14" r="2" fill="#5a5f47"/>
+                                            <rect x="53" y="21" width="14" height="5.5" rx="1.2" fill="#d6a15a"/>
+                                            <path d="M35 34q25-8 50 0 1 5-5 5-20-4-40 0-6 0-5-5z" fill="#585d45"/>
+                                        </svg>
+                                        <div class="scene__guy-back">
+                                        <svg class="scene__guy-pose scene__guy-pose--a" viewBox="0 0 120 200">
+                                            <defs>
+                                                <g id="guy-back">
+                                                    <path d="M36 72c-8 14-12 28-14 38" fill="none" stroke="#dca37a" stroke-width="9" stroke-linecap="round"/>
+                                                    <circle cx="21" cy="113" r="5.5" fill="#dca37a"/>
+                                                    <path d="M42 118 40 182h15l4-64z" fill="#2b3036"/>
+                                                    <rect x="33" y="180" width="26" height="10" rx="4" fill="#ece6da"/>
+                                                    <path d="M40 184h12" stroke="#b9ad98" stroke-width="2"/>
+                                                    <path d="M62 118h19l-1 32-14 2z" fill="#2b3036"/>
+                                                    <path d="m66 150 14-2 2 15-14 2z" fill="#2b3036"/>
+                                                    <rect x="63" y="161" width="23" height="11" rx="4" fill="#ece6da"/>
+                                                    <rect x="66" y="167" width="17" height="4" rx="2" fill="#b9ad98"/>
+                                                    <path d="M34 68q26-6 52 0l6 12-6 8h-2v34q-24 6-48 0V88h-2l-6-8z" fill="#efe6d6"/>
+                                                    <path d="M60 70v52" stroke="#ddd1bd" stroke-width="1.2"/>
+                                                    <path d="M86 74c7 7 10 14 9 22" fill="none" stroke="#dca37a" stroke-width="9" stroke-linecap="round"/>
+                                                    <path d="M53 54h14v14h-14z" fill="#c98f66"/>
+                                                    <ellipse cx="38" cy="43" rx="4.5" ry="6.5" fill="#d29a70"/>
+                                                    <ellipse cx="82" cy="43" rx="4.5" ry="6.5" fill="#d29a70"/>
+                                                    <ellipse cx="60" cy="42" rx="21" ry="23" fill="#3a2a20"/>
+                                                    <path d="M44 58q16 8 32 0" fill="none" stroke="#2b1d15" stroke-width="2" opacity=".7"/>
+                                                    <path d="M48 31q12 4 24 0M46 44q14 5 28 0" fill="none" stroke="#4a372b" stroke-width="1.4" opacity=".8"/>
+                                                    <path d="M38 37q-1-23 22-24 23 1 22 24-22-5-44 0z" fill="#6c7256"/>
+                                                    <path d="M60 13v12" stroke="#5a5f47" stroke-width="1.4"/>
+                                                    <circle cx="60" cy="14" r="2" fill="#5a5f47"/>
+                                                    <path d="M51 37q9-8 18 0" fill="#e0a77c"/>
+                                                    <path d="M51 37q9-8 18 0" fill="none" stroke="#585d45" stroke-width="2"/>
+                                                </g>
+                                            </defs>
+                                            <use href="#guy-back"/>
+                                        </svg>
+                                        <svg class="scene__guy-pose scene__guy-pose--b" viewBox="0 0 120 200"><use href="#guy-back" transform="matrix(-1 0 0 1 120 0)"/></svg>
+                                        </div>
+                                        <svg class="scene__guy-stars" viewBox="0 0 120 200">
+                                            <path d="M30 6l2.5 6.5L39 15l-6.5 2.5L30 24l-2.5-6.5L21 15l6.5-2.5z" fill="#e8b872"/>
+                                            <path d="M90 6l2.5 6.5L99 15l-6.5 2.5L90 24l-2.5-6.5L81 15l6.5-2.5z" fill="#f2e9da"/>
+                                            <path d="M60 64l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#e8b872"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <svg class="scene__guy-bonk" viewBox="0 0 120 200">
+                                    <path d="M60 2v-14M84 8l9-11M36 8l-9-11M98 28l14-4M22 28 8 24M96 50l13 5M24 50l-13 5" fill="none" stroke="#ffe2a8" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <span class="scene__sconce scene__sconce--left"></span>
+                            <span class="scene__sconce scene__sconce--right"></span>
+                        </div>
+                        <div class="scene__shade" aria-hidden="true"></div>
+                        <div class="scene__fade" aria-hidden="true"></div>
+                        <h2 id="scene-title" class="scene__title" data-stacked aria-label="Входите">Входите</h2>
+                        
+                    </div>
+                </section>
+
+                <!-- ============ О НАС: вступление и фото интерьера (gallery.js — просмотр на весь экран) ============ -->
+                <section id="about" class="about">
+                    <div class="intro">
+                        <p class="eyebrow">О нас</p>
+                        <h2 class="t-h1 split-lines">Тихие будни <br> Громкие выходные</h2>
+                        <p class="t-lead split-lines">Бохо — тёплый свет и своя атмосфера. Здесь неспешно ужинают по будням и громко проводят пятницу и субботу: любимые песни и клубный вайб до поздней ночи. </p>
+                    </div>
+
+                    <ul class="interior__grid" data-gallery>
+                        <li class="interior__item interior__item--tall">
+                            <button class="interior__open" type="button" data-gallery-index="0" aria-label="Открыть фото: Барная стойка под деревянными люстрами">
+                                <img src="assets/img/interior/bar-svet-800.webp" srcset="assets/img/interior/bar-svet-800.webp 533w, assets/img/interior/bar-svet.webp 1280w" sizes="(min-width: 1024px) 24vw, 48vw" width="533" height="800" loading="lazy" decoding="async" alt="Барная стойка под деревянными люстрами" data-full="assets/img/interior/bar-svet.webp">
+                            </button>
+                        </li>
+                        <li class="interior__item interior__item--wide">
+                            <button class="interior__open" type="button" data-gallery-index="1" aria-label="Открыть фото: Зелёный зал с красными креслами">
+                                <img src="assets/img/interior/zelenyj-zal-800.webp" srcset="assets/img/interior/zelenyj-zal-800.webp 600w, assets/img/interior/zelenyj-zal.webp 864w" sizes="(min-width: 1024px) 48vw, 96vw" width="600" height="800" loading="lazy" decoding="async" alt="Зелёный зал с красными креслами" data-full="assets/img/interior/zelenyj-zal.webp">
+                            </button>
+                        </li>
+                        <li class="interior__item interior__item--tall">
+                            <button class="interior__open" type="button" data-gallery-index="2" aria-label="Открыть фото: Фреска с фламинго в коридоре">
+                                <img src="assets/img/interior/flamingo-800.webp" srcset="assets/img/interior/flamingo-800.webp 533w, assets/img/interior/flamingo.webp 1280w" sizes="(min-width: 1024px) 24vw, 48vw" width="533" height="800" loading="lazy" decoding="async" alt="Фреска с фламинго в коридоре" data-full="assets/img/interior/flamingo.webp">
+                            </button>
+                        </li>
+                        <li class="interior__item interior__item--tall">
+                            <button class="interior__open" type="button" data-gallery-index="3" aria-label="Открыть фото: Колонны и ступени у входа в зал">
+                                <img src="assets/img/interior/vhod-kolonny-800.webp" srcset="assets/img/interior/vhod-kolonny-800.webp 533w, assets/img/interior/vhod-kolonny.webp 1280w" sizes="(min-width: 1024px) 24vw, 48vw" width="533" height="800" loading="lazy" decoding="async" alt="Колонны и ступени у входа в зал" data-full="assets/img/interior/vhod-kolonny.webp">
+                            </button>
+                        </li>
+                        <li class="interior__item interior__item--wide">
+                            <button class="interior__open" type="button" data-gallery-index="4" aria-label="Открыть фото: Деревянные люстры с тёплыми лампами">
+                                <img src="assets/img/interior/svetilniki-2-800.webp" srcset="assets/img/interior/svetilniki-2-800.webp 800w, assets/img/interior/svetilniki-2.webp 1920w" sizes="(min-width: 1024px) 48vw, 96vw" width="800" height="533" loading="lazy" decoding="async" alt="Деревянные люстры с тёплыми лампами" data-full="assets/img/interior/svetilniki-2.webp">
+                            </button>
+                        </li>
+                        <li class="interior__item interior__item--tall">
+                            <button class="interior__open" type="button" data-gallery-index="5" aria-label="Открыть фото: Лаунж с диванами и экраном">
+                                <img src="assets/img/interior/lounge-800.webp?v=2" srcset="assets/img/interior/lounge-800.webp?v=2 533w, assets/img/interior/lounge.webp?v=2 1280w" sizes="(min-width: 1024px) 24vw, 48vw" width="533" height="800" loading="lazy" decoding="async" alt="Лаунж с диванами и экраном" data-full="assets/img/interior/lounge.webp?v=2">
+                            </button>
+                        </li>
+                        <li class="interior__item interior__item--tall">
+                            <button class="interior__open" type="button" data-gallery-index="6" aria-label="Открыть фото: Барная стойка из тёмного дерева">
+                                <img src="assets/img/interior/bar-stojka-800.webp" srcset="assets/img/interior/bar-stojka-800.webp 533w, assets/img/interior/bar-stojka.webp 1280w" sizes="(min-width: 1024px) 24vw, 48vw" width="533" height="800" loading="lazy" decoding="async" alt="Барная стойка из тёмного дерева" data-full="assets/img/interior/bar-stojka.webp">
+                            </button>
+                        </li>
+                        <li class="interior__item interior__item--wide">
+                            <button class="interior__open" type="button" data-gallery-index="7" aria-label="Открыть фото: Колонны и расписная стена">
+                                <img src="assets/img/interior/kolonny-800.webp" srcset="assets/img/interior/kolonny-800.webp 800w, assets/img/interior/kolonny.webp 1920w" sizes="(min-width: 1024px) 48vw, 96vw" width="800" height="533" loading="lazy" decoding="async" alt="Колонны и расписная стена" data-full="assets/img/interior/kolonny.webp">
+                            </button>
+                        </li>
+                        <li class="interior__item interior__item--tall">
+                            <button class="interior__open" type="button" data-gallery-index="8" aria-label="Открыть фото: Светильники над баром">
+                                <img src="assets/img/interior/svetilniki-800.webp" srcset="assets/img/interior/svetilniki-800.webp 533w, assets/img/interior/svetilniki.webp 1280w" sizes="(min-width: 1024px) 24vw, 48vw" width="533" height="800" loading="lazy" decoding="async" alt="Светильники над баром" data-full="assets/img/interior/svetilniki.webp">
+                            </button>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- ============ ОКНА: блок из travelluv — три зоны, раскрываются по клику ============ -->
+                <section id="zones" class="zones" aria-labelledby="zones-title">
+                    <div class="section-head">
+                        <p class="eyebrow">Три настроения</p>
+                        <h2 id="zones-title" class="t-h1 split-lines">Выберите свой вечер</h2>
+                    </div>
+
+                    <div class="zones__stage is-inactive" data-zones>
+                        <article class="zone" style="--i:0">
+                            <div class="zone__overflow">
+                                <div class="zone__inner">
+                                    <div class="zone__bg"><img src="assets/img/interior/bra-obezyany.webp" width="1920" height="1280" loading="lazy" decoding="async" alt=""></div>
+                                    <button class="zone__preview" type="button" aria-expanded="false" aria-controls="zone-restaurant">
+                                        <span class="zone__num">01</span>
+                                        <span class="zone__heading">Ресторан</span>
+                                        <span class="zone__hint">Открыть</span>
+                                    </button>
+                                    <div class="zone__content" id="zone-restaurant">
+                                        <p class="eyebrow">01 — Ресторан</p>
+                                        <h3 class="t-h1">Ужин в своём темпе</h3>
+                                        <p class="t-body">Авторская и европейская кухня и большая барная карта. Тихие столики для двоих и просторные диваны для компании — вечер начинается здесь.</p>
+
+                                        <button class="btn btn--accent" type="button" data-booking="restaurant">Забронировать стол</button>
+                                    </div>
+                                    <button class="zone__close" type="button" aria-label="Закрыть"></button>
+                                </div>
+                            </div>
+                            <div class="zone__index" aria-hidden="true">
+                                <div class="zone__index-back">01</div>
+                                <div class="zone__index-front"><div class="zone__index-overlay" data-index="01">01</div></div>
+                            </div>
+                        </article>
+
+                        <article class="zone" style="--i:1">
+                            <div class="zone__overflow">
+                                <div class="zone__inner">
+                                    <div class="zone__bg"><img src="assets/img/kalyan.webp" width="720" height="1080" loading="lazy" decoding="async" alt="" style="object-position: 50% 35%"></div>
+                                    <button class="zone__preview" type="button" aria-expanded="false" aria-controls="zone-hookah">
+                                        <span class="zone__num">02</span>
+                                        <span class="zone__heading">Лаунж</span>
+                                        <span class="zone__hint">Открыть</span>
+                                    </button>
+                                    <div class="zone__content" id="zone-hookah">
+                                        <p class="eyebrow">02 — Лаунж</p>
+                                        <h3 class="t-h1">Кальянный лаунж</h3>
+                                        <p class="t-body">Классические чаши и чаши на фруктах — например, на спелом гранате. Кальянный мастер подберёт табак и крепость под ваше настроение, а мягкий свет и диваны сделают остальное.</p>
+                                        <ul class="facts">
+                                            <li>Чаши на фруктах</li>
+                                            <li>Подбор вкуса и крепости</li>
+                                            <li>Диваны и приглушённый свет</li>
+                                        </ul>
+                                        <button class="btn btn--accent" type="button" data-booking="hookah">Забронировать лаунж</button>
+                                    </div>
+                                    <button class="zone__close" type="button" aria-label="Закрыть"></button>
+                                </div>
+                            </div>
+                            <div class="zone__index" aria-hidden="true">
+                                <div class="zone__index-back">02</div>
+                                <div class="zone__index-front"><div class="zone__index-overlay" data-index="02">02</div></div>
+                            </div>
+                        </article>
+
+                        <article class="zone" style="--i:2">
+                            <div class="zone__overflow">
+                                <div class="zone__inner">
+                                    <div class="zone__bg"><img src="assets/img/vhod.webp" width="1920" height="1280" loading="lazy" decoding="async" alt=""></div>
+                                    <button class="zone__preview" type="button" aria-expanded="false" aria-controls="zone-karaoke">
+                                        <span class="zone__num">03</span>
+                                        <span class="zone__heading">Караоке</span>
+                                        <span class="zone__hint">Открыть</span>
+                                    </button>
+                                    <div class="zone__content" id="zone-karaoke">
+                                        <p class="eyebrow">03 — Караоке</p>
+                                        <h3 class="t-h1">Поём до последнего гостя</h3>
+                                        <p class="t-body">Хороший звук, микрофоны и свет сцены. Выходите петь при всех или собирайтесь своей компанией — для праздников, корпоративов и спонтанных вечеров.</p>
+                                        <ul class="facts">
+                                            <li>Большой каталог песен</li>
+                                            <li>Русские и зарубежные хиты</li>
+                                            <li>Праздники и корпоративы</li>
+                                        </ul>
+                                        <button class="btn btn--accent" type="button" data-booking="karaoke">Забронировать караоке</button>
+                                    </div>
+                                    <button class="zone__close" type="button" aria-label="Закрыть"></button>
+                                </div>
+                            </div>
+                            <div class="zone__index" aria-hidden="true">
+                                <div class="zone__index-back">03</div>
+                                <div class="zone__index-front"><div class="zone__index-overlay" data-index="03">03</div></div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ============ КУХНЯ ============ -->
+                <section id="kitchen" class="kitchen">
+                    <div class="kitchen__grid">
+                        <div class="kitchen__copy">
+                            <p class="eyebrow">Кухня</p>
+                            <h2 class="t-h1 split-lines">Готовим с&nbsp;характером</h2>
+                            <p class="t-body split-lines">Горячие супы, паста, блюда на углях и домашние десерты. Мы внимательно относимся к продуктам и подаче — каждое блюдо выходит к гостю таким, каким его задумал шеф.</p>
+                            <a class="btn btn--ghost cta-hover" href="menu.html"><span class="cta-hover-label">Смотреть меню</span></a>
+                        </div>
+                        <div class="reveal-image reveal-image--vertical frame frame--portrait frame--arch">
+                            <img class="parallax-media" src="assets/img/gost.webp" width="853" height="1280" loading="lazy" decoding="async" alt="Гость пробует пасту">
+                        </div>
+                    </div>
+
+                    <div class="triple">
+                        <div class="triple__track" data-triple>
+                            <div class="reveal-image reveal-image--vertical frame frame--tall">
+                                <img src="assets/img/shoty.webp" width="853" height="1280" loading="lazy" decoding="async" alt="Сет слоистых шотов на барной стойке">
+                            </div>
+                            <div class="reveal-image reveal-image--vertical frame frame--tall">
+                                <img src="assets/img/zal.webp" width="1920" height="1280" loading="lazy" decoding="async" alt="Зал Бохо: бархатные шторы и мягкие кресла">
+                            </div>
+                            <div class="reveal-image reveal-image--vertical frame frame--tall">
+                                <img src="assets/img/shef.webp" width="853" height="1280" loading="lazy" decoding="async" alt="Шеф Бохо с банками домашних заготовок">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ БАР: карточный слайдер из travelluv ============ -->
+                <section id="bar" class="bar" aria-labelledby="bar-title">
+                    <div class="section-head">
+                        <p class="eyebrow">Бар</p>
+                        <h2 id="bar-title" class="t-h1 split-lines">Вечер в&nbsp;деталях</h2>
+                    </div>
+
+                    <div class="deck" data-deck aria-roledescription="карусель" aria-label="Бар и кальян Бохо">
+                        <article class="deck__card" aria-roledescription="слайд">
+                            <img src="assets/img/kokteyli.webp" width="853" height="1280" loading="lazy" decoding="async" alt="Три авторских коктейля в бокалах">
+                            <div class="deck__content">
+                                <p class="eyebrow">01</p>
+                                <h3 class="deck__title">Авторские коктейли</h3>
+                                <p class="deck__desc">Сезонные миксы на свежих фруктах, ягодах и домашних сиропах — от лёгких спритцев до крепкой классики.</p>
+                            </div>
+                        </article>
+                        <article class="deck__card" aria-roledescription="слайд">
+                            <img src="assets/img/kokteyli-bar.webp" width="853" height="1280" loading="lazy" decoding="async" alt="Четыре коктейля на барной стойке">
+                            <div class="deck__content">
+                                <p class="eyebrow">02</p>
+                                <h3 class="deck__title">Классика за стойкой</h3>
+                                <p class="deck__desc">Яркие лонги, сангрия и сливочная классика — бармен подберёт напиток под ваше настроение.</p>
+                            </div>
+                        </article>
+                        <article class="deck__card" aria-roledescription="слайд">
+                            <img src="assets/img/bar-polaroid.webp" width="853" height="1280" loading="lazy" decoding="async" alt="Бармен с полароидом и тремя коктейлями" style="object-position: 50% 30%">
+                            <div class="deck__content">
+                                <p class="eyebrow">03</p>
+                                <h3 class="deck__title">Подача с характером</h3>
+                                <p class="deck__desc">Наши бармены превращают каждый коктейль в маленькое шоу — и иногда в снимок на память.</p>
+                            </div>
+                        </article>
+                        <article class="deck__card" aria-roledescription="слайд">
+                            <img src="assets/img/kalyan.webp" width="720" height="1080" loading="lazy" decoding="async" alt="Кальян с чашей на гранате">
+                            <div class="deck__content">
+                                <p class="eyebrow">04</p>
+                                <h3 class="deck__title">Кальян на фруктах</h3>
+                                <p class="deck__desc">Чаши на гранате и других фруктах с подобранными вкусами табака — для долгих разговоров.</p>
+                            </div>
+                        </article>
+                        <article class="deck__card" aria-roledescription="слайд">
+                            <img src="assets/img/malina.webp" width="853" height="1280" loading="lazy" decoding="async" alt="Бокал с малиной и сливками">
+                            <div class="deck__content">
+                                <p class="eyebrow">05</p>
+                                <h3 class="deck__title">Десерты</h3>
+                                <p class="deck__desc">Ягоды, сливки и шоколад — сладкий финал к бокалу вина или чашке чая.</p>
+                            </div>
+                        </article>
+
+                        <div class="deck__nav">
+                            <button class="deck__btn" type="button" data-deck-prev aria-label="Предыдущий слайд">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+                            </button>
+                            <span class="deck__counter" aria-live="polite"><span data-deck-current>01</span> / <span data-deck-total>05</span></span>
+                            <button class="deck__btn" type="button" data-deck-next aria-label="Следующий слайд">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ КАРАОКЕ ============ -->
+                <section id="karaoke" class="karaoke">
+                    <div class="intro">
+                        <p class="eyebrow">Караоке</p>
+                        <h2 class="t-h1 split-lines">Вечер под микрофон</h2>
+                        <!-- TODO: добавить расписание караоке -->
+                        <p class="t-lead split-lines">Когда ужин подходит к десерту, в Бохо загорается свет сцены. Берите микрофон, зовите друзей и пойте то, что давно хотелось.</p>
+                    </div>
+                    <div class="reveal-image reveal-image--wide frame frame--band">
+                        <img class="parallax-media" src="assets/img/vhod.webp" width="1920" height="1280" loading="lazy" decoding="async" alt="Вход в Бохо с ретро-лампами">
+                    </div>
+                </section>
+
+                <!-- ============ АКЦИИ: карточки с цифрой-индексом в стиле окон ============ -->
+                <section id="offers" class="offers" aria-labelledby="offers-title">
+                    <div class="section-head">
+                        <p class="eyebrow">Предложения</p>
+                        <h2 id="offers-title" class="t-h1 split-lines">Акции</h2>
+                    </div>
+                    <!-- TODO: проверить актуальность акций -->
+                    <div class="offers__grid">
+                        <article class="offer">
+                            <div class="offer__media frame frame--card">
+                                <img src="assets/img/interior/lounge-800.webp?v=2" srcset="assets/img/interior/lounge-800.webp?v=2 533w, assets/img/interior/lounge.webp?v=2 1280w" sizes="(min-width: 768px) 30vw, 90vw" width="533" height="800" loading="lazy" decoding="async" alt="">
+                                <span class="offer__index" aria-hidden="true">01</span>
+                            </div>
+                            <h3 class="t-h2">Деловые обеды</h3>
+                            <p class="t-body">По будням с 12:00 до 16:00 — скидка 20% на всё меню, кроме алкоголя.</p>
+                        </article>
+                        <article class="offer">
+                            <div class="offer__media frame frame--card">
+                                <img src="assets/img/kokteyli.webp" width="853" height="1280" loading="lazy" decoding="async" alt="">
+                                <span class="offer__index" aria-hidden="true">02</span>
+                            </div>
+                            <h3 class="t-h2">Именинникам −10%</h3>
+                            <p class="t-body">В день рождения при предъявлении документа, удостоверяющего личность.</p>
+                        </article>
+                        <article class="offer">
+                            <div class="offer__media frame frame--card">
+                                <img src="assets/img/kamin.webp" width="1920" height="1280" loading="lazy" decoding="async" alt="">
+                                <span class="offer__index" aria-hidden="true">03</span>
+                            </div>
+                            <h3 class="t-h2">Банкеты и праздники</h3>
+                            <p class="t-body">Дни рождения, корпоративы и закрытые вечеринки — с кухней, кальяном и караоке.</p>
+                        </article>
+                    </div>
+                    <div class="offers__cta">
+                        <button class="btn btn--accent cta-hover" type="button" data-booking><span class="cta-hover-label">Забронировать стол</span></button>
+                        <a class="btn btn--ghost" href="#lucky">Испытать удачу</a>
+                    </div>
+                </section>
+
+                <!-- ============ ИСПЫТАЙ УДАЧУ: слот-машина (slot.js, призы — slot-data.js) ============ -->
+                <section id="lucky" class="lucky" aria-labelledby="lucky-title">
+                    <div class="section-head">
+                        <p class="eyebrow">Игровая акция</p>
+                        <h2 id="lucky-title" class="t-h1 split-lines">Испытай удачу</h2>
+                        <p class="t-body lucky__lead">Войдите по номеру телефона и&nbsp;крутите бесплатно каждый день. Соберите три одинаковых символа на&nbsp;центральной линии — и&nbsp;получите промокод на&nbsp;кухню.</p>
+                    </div>
+
+                    <div class="lucky__layout">
+                        <div class="slot" data-slot>
+                            <div class="slot__cabinet">
+                                <div class="slot__lights" aria-hidden="true"></div>
+                                <div class="slot__panel">
+                                    <div class="slot__crown" aria-hidden="true">
+                                        <svg class="slot__emblem" viewBox="0 0 100 100"><use href="#ss-boho"/></svg>
+                                    </div>
+                                    <div class="slot__ticker" aria-hidden="true">
+                                        <div class="slot__ticker-track"></div>
+                                    </div>
+                                    <div class="slot__window">
+                                        <div class="slot__reels" role="img" aria-label="Барабаны слот-машины"></div>
+                                        <div class="slot__wins" aria-hidden="true"></div>
+                                        <div class="slot__payline" aria-hidden="true"></div>
+                                    </div>
+                                    <div class="slot__controls">
+                                        <div class="slot__tries">
+                                            <span class="slot__lamps" aria-hidden="true"></span>
+                                            <span class="slot__tries-text" data-slot-tries></span>
+                                        </div>
+                                        <button class="slot__spin" type="button" data-slot-spin>Крутить</button>
+                                        <button class="slot__sound" type="button" data-slot-sound aria-pressed="false" aria-label="Звук выключен">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path class="slot__sound-body" d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path class="slot__sound-on" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/><path class="slot__sound-off" d="m16 9.5 5 5m0-5-5 5"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="slot__flash" aria-hidden="true"></div>
+                            </div>
+                            <button class="slot__lever" type="button" data-slot-lever aria-label="Потянуть рычаг">
+                                <span class="slot__lever-base" aria-hidden="true"></span>
+                                <span class="slot__lever-arm" aria-hidden="true"></span>
+                                <span class="slot__lever-knob" aria-hidden="true"></span>
+                            </button>
+                            <div class="slot__fx" aria-hidden="true"></div>
+                            <p class="slot__sr" aria-live="polite" data-slot-status></p>
+                        </div>
+
+                        <aside class="lucky__aside" aria-labelledby="paytable-title">
+                            <h3 id="paytable-title" class="t-h2">Таблица выигрышей</h3>
+                            <ul class="paytable" data-slot-paytable></ul>
+                            <div class="lucky__mine" data-slot-mine hidden>
+                                <p class="eyebrow">Ваш промокод</p>
+                                <button class="lucky__mine-code" type="button" data-slot-mine-open></button>
+                            </div>
+                            <div class="lucky-user" data-lucky-user hidden></div>
+                            <div class="lucky-tg" data-tg-card></div>
+                            <p class="lucky__rules" data-slot-rules></p>
+                        </aside>
+                    </div>
+                </section>
+
+                <!-- ============ ФУТЕР ============ -->
+                <footer id="contacts" class="site-footer">
+                    <div class="site-footer__tagline-wrap">
+                        <img class="footer-host" src="assets/img/host-420.png" width="420" height="453" loading="lazy" decoding="async" alt="">
+                        <p class="footer-tagline">ждём вас в&nbsp;гости</p>
+                    </div>
+                    <div class="site-footer__grid">
+                        <nav class="site-footer__nav" aria-label="Навигация в подвале">
+                            <ul>
+                                <li><a href="#about">О нас</a></li>
+                                <li><a href="#zones">Залы</a></li>
+                                <li><a href="#kitchen">Кухня</a></li>
+                                <li><a href="#bar">Бар</a></li>
+                                <li><a href="#karaoke">Караоке</a></li>
+                                <li><a href="#offers">Акции</a></li>
+                                <li><a href="#lucky">Испытай удачу</a></li>
+                                <li><a href="menu.html">Меню</a></li>
+                            </ul>
+                        </nav>
+                        <!-- TODO: заменить все контакты на реальные -->
+                        <address class="site-footer__contacts">
+                            <p class="eyebrow">Ресторан · Кальян · Караоке</p>
+                            <p>г. Москва, ул. Примерная, 1<br>метро «Станция»</p>
+                            <p>Ежедневно 12:00 — 02:00</p>
+                            <p><a href="tel:+70000000000" data-phone>+7 (000) 000-00-00</a><br><a href="mailto:info@boho.example">info@boho.example</a></p>
+                            <ul class="socials">
+                                <li><a href="#" data-todo="Telegram" aria-label="Telegram Бохо"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.94 4.3 18.7 19.6c-.24 1.07-.88 1.34-1.78.83l-4.93-3.63-2.38 2.29c-.26.26-.48.48-.99.48l.35-5.02 9.14-8.26c.4-.35-.09-.55-.62-.2L6.2 13.2l-4.86-1.52c-1.06-.33-1.08-1.06.22-1.57L20.6 2.77c.88-.33 1.65.2 1.34 1.53Z"/></svg></a></li>
+                                <li><a href="#" data-todo="ВКонтакте" aria-label="Бохо ВКонтакте"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.79 17.5C6.6 17.5 3.07 13.27 2.92 6.25h3.1c.1 5.15 2.38 7.33 4.19 7.78V6.25h2.92v4.44c1.79-.19 3.66-2.21 4.3-4.44h2.92a8.63 8.63 0 0 1-3.97 5.64 8.94 8.94 0 0 1 4.65 5.61h-3.21c-.69-2.14-2.4-3.8-4.69-4.03v4.03h-.35Z"/></svg></a></li>
+                                <li><a href="#" data-todo="Instagram" aria-label="Instagram Бохо"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.88 5.88 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.88 5.88 0 0 0 2.13-1.38 5.88 5.88 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.38-2.13A5.88 5.88 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg></a></li>
+                            </ul>
+                        </address>
+                        <div class="site-footer__legal">
+                            <p class="site-footer__brand">Boho</p>
+                            <p>© <span data-year>2026</span> Бохо. Ресторан, кальян, караоке.<br>Кальян — для гостей старше 18 лет.<br>Автор сайта: Дышеков Аскер</p>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <!-- ============ НАВИГАЦИЯ ============ -->
+    <div id="nav" class="nav-overlay" hidden>
+        <div class="nav-overlay__inner">
+            <div class="nav-overlay__media frame frame--arch">
+                <img src="assets/img/kalyan.webp" width="720" height="1080" loading="lazy" decoding="async" alt="">
+            </div>
+            <nav aria-label="Основная навигация">
+                <ul class="nav-overlay__list">
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#zones">Залы</a></li>
+                    <li><a href="#kitchen">Кухня</a></li>
+                    <li><a href="#bar">Бар</a></li>
+                    <li><a href="#karaoke">Караоке</a></li>
+                    <li><a href="menu.html">Меню</a></li>
+                    <li><a href="#offers">Акции</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                    <li><button type="button" class="nav-overlay__booking" data-booking>Бронирование</button></li>
+                </ul>
+            </nav>
+            <div class="nav-overlay__aside">
+                <div class="frame frame--square">
+                    <img src="assets/img/kokteyli-bar.webp" width="853" height="1280" loading="lazy" decoding="async" alt="">
+                </div>
+                <p class="t-body"><a href="tel:+70000000000" data-phone>+7 (000) 000-00-00</a><br>Ежедневно 12:00 — 02:00</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ БРОНИРОВАНИЕ ============ -->
+    <dialog id="booking" class="booking" aria-labelledby="booking-title">
+        <form class="booking__form" method="dialog" novalidate>
+            <button class="booking__close" type="button" data-booking-close aria-label="Закрыть"></button>
+            <p class="eyebrow">Бронирование</p>
+            <h2 id="booking-title" class="t-h1">Забронировать стол</h2>
+            <p class="t-body booking__note">Оставьте заявку или позвоните: <a href="tel:+70000000000" data-phone>+7 (000) 000-00-00</a></p>
+
+            <div class="booking__fields">
+                <label class="field">
+                    <span>Имя</span>
+                    <input name="name" type="text" autocomplete="name" required>
+                </label>
+                <label class="field">
+                    <span>Телефон</span>
+                    <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7">
+                </label>
+                <label class="field">
+                    <span>Дата</span>
+                    <input name="date" type="date" required>
+                </label>
+                <label class="field">
+                    <span>Время</span>
+                    <input name="time" type="time" required value="19:00">
+                </label>
+                <label class="field">
+                    <span>Гостей</span>
+                    <input name="guests" type="number" min="1" max="60" value="2" required>
+                </label>
+                <label class="field">
+                    <span>Зона</span>
+                    <select name="zone">
+                        <option value="restaurant">Ресторан</option>
+                        <option value="hookah">Кальянный лаунж</option>
+                        <option value="karaoke">Караоке</option>
+                    </select>
+                </label>
+                <div class="field field--wide">
+                    <span id="table-label">Столик</span>
+                    <div class="table-pick" data-table-pick>
+                        <div class="table-pick__value">
+                            <span class="table-pick__title" data-table-title>Любой свободный</span>
+                            <span class="table-pick__meta" data-table-meta>Администратор подберёт лучший стол</span>
+                        </div>
+                        <button type="button" class="table-pick__open" data-hall-open aria-describedby="table-label">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"/></svg>
+                            <span>Выбрать на схеме</span>
+                        </button>
+                    </div>
+                    <input type="hidden" name="table">
+                </div>
+                <label class="field field--wide">
+                    <span>Комментарий</span>
+                    <textarea name="comment" rows="2" placeholder="Повод, пожелания по столу"></textarea>
+                </label>
+            </div>
+
+            <p class="booking__status" role="status" aria-live="polite"></p>
+            <button class="btn btn--accent booking__submit" type="submit">Отправить заявку</button>
+        </form>
+    </dialog>
+
+    <!-- ============ СХЕМА ЗАЛА (выбор столика) ============ -->
+    <dialog id="hall" class="hall" aria-labelledby="hall-title">
+        <div class="hall__inner">
+            <header class="hall__head">
+                <div>
+                    <p class="eyebrow">Схема зала</p>
+                    <h2 id="hall-title" class="hall__title">Выберите столик</h2>
+                </div>
+                <p class="hall__hint">Гостей: <b data-hall-guests>2</b>. Подходящие столы подсвечены.</p>
+                <button class="booking__close hall__close" type="button" data-hall-close aria-label="Закрыть схему"></button>
+            </header>
+
+            <div class="hall__toolbar">
+                <div class="hall__chips" role="radiogroup" aria-label="Зона" data-hall-zones></div>
+                <div class="hall__view" role="group" aria-label="Вид схемы">
+                    <button type="button" class="hall__view-btn is-active" data-hall-view="map" aria-pressed="true">Схема</button>
+                    <button type="button" class="hall__view-btn" data-hall-view="list" aria-pressed="false">Списком</button>
+                </div>
+            </div>
+
+            <div class="hall__body">
+                <div class="hall__stage" data-hall-stage>
+                    <div class="hall__map" data-hall-map>
+                        <svg role="group" aria-label="Схема зала Бохо"></svg>
+                    </div>
+                    <div class="hall__zoom" role="group" aria-label="Масштаб">
+                        <button type="button" data-hall-zoom="in" aria-label="Приблизить">+</button>
+                        <button type="button" data-hall-zoom="out" aria-label="Отдалить">−</button>
+                        <button type="button" data-hall-zoom="fit" aria-label="Показать весь зал">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.75 8.25V4.5h3.75M20.25 8.25V4.5H16.5M3.75 15.75v3.75h3.75M20.25 15.75v3.75H16.5"/></svg>
+                        </button>
+                    </div>
+                    <ul class="hall__legend" aria-label="Обозначения">
+                        <li><i class="dot dot--fit"></i>Подходит</li>
+                        <li><i class="dot dot--unfit"></i>Не по числу гостей</li>
+                        <li><i class="dot dot--picked"></i>Ваш выбор</li>
+                    </ul>
+                </div>
+                <div class="hall__list" data-hall-list hidden></div>
+                <aside class="hall__panel" data-hall-panel aria-live="polite"></aside>
+            </div>
+
+            <footer class="hall__foot">
+                <button type="button" class="btn btn--ghost" data-hall-any>Без предпочтений</button>
+                <button type="button" class="btn btn--accent" data-hall-confirm disabled>Выбрать стол</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <a href="tel:+70000000000" data-phone class="call-fab" aria-label="Позвонить в Бохо">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+    </a>
+
+    <!-- ============ ПРОСМОТР ФОТО ИНТЕРЬЕРА ============ -->
+    <dialog id="gallery" class="gallery" aria-label="Фото интерьера">
+        <figure class="gallery__stage">
+            <img class="gallery__img" data-gallery-img alt="">
+            <figcaption class="gallery__caption"><span data-gallery-caption></span> <span class="gallery__count" data-gallery-count></span></figcaption>
+        </figure>
+        <button class="gallery__nav gallery__nav--prev" type="button" data-gallery-prev aria-label="Предыдущее фото"></button>
+        <button class="gallery__nav gallery__nav--next" type="button" data-gallery-next aria-label="Следующее фото"></button>
+        <button class="booking__close gallery__close" type="button" data-gallery-close aria-label="Закрыть"></button>
+    </dialog>
+
+    <!-- ============ ПРИЗ «ИСПЫТАЙ УДАЧУ» ============ -->
+    <dialog id="lucky-prize" class="prize" aria-labelledby="prize-title">
+        <div class="prize__card">
+            <button class="booking__close" type="button" data-prize-close aria-label="Закрыть"></button>
+            <div class="prize__badge" aria-hidden="true"><svg viewBox="0 0 100 100"><use data-prize-symbol href="#ss-boho"/></svg></div>
+            <p class="eyebrow" data-prize-eyebrow>Ваш приз</p>
+            <h2 id="prize-title" class="t-h1" data-prize-title></h2>
+            <p class="t-body" data-prize-text></p>
+            <div class="prize__ticket">
+                <span class="prize__label">Промокод</span>
+                <strong class="prize__code" data-prize-code></strong>
+                <button class="prize__copy" type="button" data-prize-copy>Скопировать</button>
+            </div>
+            <p class="prize__note" data-prize-note></p>
+            <div class="prize__actions">
+                <button class="btn btn--accent" type="button" data-booking data-prize-book>Забронировать стол</button>
+                <button class="btn btn--ghost" type="button" data-prize-close>Позже</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- ============ ВХОД ПО ТЕЛЕФОНУ ДЛЯ «ИСПЫТАЙ УДАЧУ» (lucky-account.js) ============ -->
+    <dialog id="lucky-auth" class="prize lucky-auth" aria-labelledby="auth-title">
+        <div class="prize__card">
+            <button class="booking__close" type="button" data-auth-close aria-label="Закрыть"></button>
+            <div class="prize__badge lucky-auth__badge" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#ss-boho"/></svg></div>
+
+            <form class="lucky-auth__step" data-step="phone" novalidate>
+                <p class="eyebrow">Испытай удачу</p>
+                <h2 id="auth-title" class="t-h1">Вход по номеру</h2>
+                <p class="t-body">Чтобы крутить барабаны, подтвердите телефон — пришлём код в&nbsp;SMS. Так промокод закрепится за&nbsp;вами.</p>
+                <label class="field">
+                    <span>Имя</span>
+                    <input name="name" type="text" autocomplete="given-name" maxlength="40" required>
+                </label>
+                <label class="field">
+                    <span>Телефон</span>
+                    <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required>
+                </label>
+                <label class="lucky-auth__consent">
+                    <input type="checkbox" name="consent" required>
+                    <span>Согласен на обработку персональных данных и получение SMS с кодом. <a href="#" data-auth-privacy>Политика обработки данных</a></span>
+                </label>
+                <p class="lucky-auth__error" data-auth-error role="alert"></p>
+                <button class="btn btn--accent" type="submit">Получить код</button>
+            </form>
+
+            <form class="lucky-auth__step" data-step="code" novalidate hidden>
+                <p class="eyebrow">Шаг 2 из 2</p>
+                <h2 class="t-h1">Код из SMS</h2>
+                <p class="t-body">Отправили на <strong data-auth-phone></strong> · <button type="button" class="lucky-auth__link" data-auth-back>изменить номер</button></p>
+                <p class="lucky-auth__demo" data-auth-demo hidden></p>
+                <input class="lucky-auth__code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" aria-label="Код из SMS">
+                <p class="lucky-auth__error" data-auth-error role="alert"></p>
+                <button class="btn btn--accent" type="submit">Подтвердить</button>
+                <button type="button" class="lucky-auth__link" data-auth-resend disabled></button>
+            </form>
+
+            <div class="lucky-auth__step" data-step="welcome" hidden>
+                <p class="eyebrow">Готово</p>
+                <h2 class="t-h1" data-auth-hello></h2>
+                <p class="t-body" data-auth-spins></p>
+                <div class="lucky-tg lucky-tg--dialog" data-tg-card></div>
+                <button class="btn btn--accent" type="button" data-auth-play>Крутить барабаны</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- ============ РЕКЛАМА «ИСПЫТАЙ УДАЧУ» НА ПЕРВОМ ЭКРАНЕ (lucky-promo.js) ============ -->
+    <aside class="promo" data-promo aria-label="Игровая акция «Испытай удачу»" hidden>
+        <button class="promo__close" type="button" data-promo-close aria-label="Скрыть рекламу"></button>
+        <a class="promo__link" href="#lucky">
+            <span class="promo__arch" aria-hidden="true">
+                <span class="promo__bulbs"></span>
+                <span class="promo__brand">Boho</span>
+                <span class="promo__reels">
+                    <span class="promo__reel"><span class="promo__strip"></span></span>
+                    <span class="promo__reel"><span class="promo__strip"></span></span>
+                    <span class="promo__reel"><span class="promo__strip"></span></span>
+                </span>
+            </span>
+            <span class="promo__body">
+                <span class="promo__eyebrow">Игровая акция</span>
+                <span class="promo__title">Испытай удачу</span>
+                <span class="promo__text">Скидки до 20% и десерты в подарок. Бесплатно, 3 попытки в день</span>
+                <span class="promo__cta">Крутить</span>
+            </span>
+            <span class="promo__shine" aria-hidden="true"></span>
+        </a>
+    </aside>
+    <a class="promo-chip" href="#lucky" data-promo-chip hidden>
+        <span class="promo-chip__icons" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#ss-boho"/></svg><svg viewBox="0 0 100 100"><use href="#ss-boho"/></svg><svg viewBox="0 0 100 100"><use href="#ss-boho"/></svg></span>
+        <span>Испытай удачу</span>
+    </a>
+
+    <!-- Символы слот-машины: единый набор, viewBox 100×100 -->
+    <svg class="slot-sprite" width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+            <symbol id="ss-hookah" viewBox="0 0 100 100">
+                <path d="M47 11c-3-3 1-5 0-8M53 11c-3-3 1-5 0-8" fill="none" stroke="#f2e9da" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+                <path d="M54.5 45c14 0 24 5 24 17 0 10-4 15-4 22" fill="none" stroke="#d6a15a" stroke-width="3" stroke-linecap="round"/>
+                <path d="M74.5 84v7" stroke="#f2e9da" stroke-width="4" stroke-linecap="round"/>
+                <path d="M38 15h24l-4 9H42z" fill="#d6a15a"/>
+                <rect x="40" y="12.5" width="20" height="3.5" rx="1.75" fill="#f2e9da"/>
+                <rect x="47.5" y="24" width="5" height="34" fill="#cbbfa9"/>
+                <ellipse cx="50" cy="31" rx="15" ry="3.2" fill="#f2e9da"/>
+                <circle cx="50" cy="45" r="4.5" fill="#d6a15a"/>
+                <path d="M46 57h8c0 5 4 7 9 11 4 3 6 7 6 11 0 8-8 12-19 12s-19-4-19-12c0-4 2-8 6-11 5-4 9-6 9-11z" fill="#2a4337" stroke="#f2e9da" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M34.5 79c6 2.5 25 2.5 31 0" fill="none" stroke="#d6a15a" stroke-width="2" stroke-linecap="round" opacity=".85"/>
+            </symbol>
+            <symbol id="ss-cocktail" viewBox="0 0 100 100">
+                <path d="M34 11l20 27" stroke="#f2e9da" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="72" cy="26" r="10" fill="#e8b872" stroke="#f2e9da" stroke-width="2.5"/>
+                <path d="M72 18v16M64 26h16M66.5 20.5l11 11M77.5 20.5l-11 11" stroke="#b8693a" stroke-width="1.3" opacity=".75"/>
+                <path d="M22 29h56c0 14-12 25-28 25S22 43 22 29z" fill="#d6a15a" stroke="#f2e9da" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M29 35c3 7 9 11 16 12.5" fill="none" stroke="#f2e9da" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+                <path d="M50 54v26" stroke="#f2e9da" stroke-width="3" stroke-linecap="round"/>
+                <path d="M36 85c4-4 24-4 28 0" fill="none" stroke="#f2e9da" stroke-width="3" stroke-linecap="round"/>
+            </symbol>
+            <symbol id="ss-dish" viewBox="0 0 100 100">
+                <path d="M41 22c-3-4 2-6 0-10M59 22c-3-4 2-6 0-10" fill="none" stroke="#f2e9da" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+                <circle cx="50" cy="31" r="4.5" fill="#f2e9da"/>
+                <rect x="48.5" y="33" width="3" height="5" fill="#f2e9da"/>
+                <path d="M17 70a33 33 0 0 1 66 0z" fill="#d6a15a"/>
+                <path d="M27 61a24 24 0 0 1 13-16" fill="none" stroke="#f2e9da" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+                <rect x="11" y="69" width="78" height="5.5" rx="2.75" fill="#f2e9da"/>
+                <path d="M21 81h58" stroke="#cbbfa9" stroke-width="3" stroke-linecap="round"/>
+            </symbol>
+            <symbol id="ss-dessert" viewBox="0 0 100 100">
+                <path d="M51 22c1-6 5-10 10-12" fill="none" stroke="#7d9a66" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M23 60c-3-8 3-15 10-15 1-8 8-12 17-12s16 4 17 12c7 0 13 7 10 15z" fill="#f2e9da"/>
+                <path d="M33 49c6 3 28 3 34 0" fill="none" stroke="#cbbfa9" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="50" cy="27" r="7" fill="#b8693a"/>
+                <circle cx="47.6" cy="24.6" r="2" fill="#f2e9da" opacity=".6"/>
+                <path d="M24 60h52l-7 28H31z" fill="#d6a15a"/>
+                <path d="M37 60l2 28M50 60v28M63 60l-2 28" stroke="#1a130a" stroke-width="2" opacity=".3"/>
+            </symbol>
+            <symbol id="ss-percent" viewBox="0 0 100 100">
+                <circle cx="50" cy="53" r="34" fill="#d6a15a"/>
+                <circle cx="50" cy="53" r="28" fill="none" stroke="#1a130a" stroke-width="1.5" opacity=".35"/>
+                <circle cx="39" cy="42" r="6.5" fill="none" stroke="#1a130a" stroke-width="4.5"/>
+                <circle cx="61" cy="64" r="6.5" fill="none" stroke="#1a130a" stroke-width="4.5"/>
+                <path d="M64 37 36 69" stroke="#1a130a" stroke-width="5" stroke-linecap="round"/>
+                <path d="M82 12l2 5.5 5.5 2-5.5 2-2 5.5-2-5.5-5.5-2 5.5-2z" fill="#f2e9da"/>
+            </symbol>
+            <symbol id="ss-boho" viewBox="0 0 100 100">
+                <path d="M16 90V46a34 34 0 0 1 68 0v44z" fill="#d6a15a"/>
+                <path d="M22 85V47a28 28 0 0 1 56 0v38z" fill="none" stroke="#1a130a" stroke-width="1.5" opacity=".4"/>
+                <path d="M50 22l2.2 5.8 5.8 2.2-5.8 2.2L50 38l-2.2-5.8L42 30l5.8-2.2z" fill="#1a130a" opacity=".75"/>
+                <text x="50" y="68" text-anchor="middle" font-family="'DIN Pro', Arial, sans-serif" font-weight="700" font-size="30" fill="#1a130a">Bh</text>
+                <path d="M30 74h40" stroke="#1a130a" stroke-width="1.5" opacity=".4"/>
+                <path d="M87 13l1.6 4.4 4.4 1.6-4.4 1.6L87 25l-1.6-4.4L81 19l4.4-1.6z" fill="#f2e9da"/>
+                <path d="M11 30l1.2 3.3 3.3 1.2-3.3 1.2L11 39l-1.2-3.3L6.5 34.5l3.3-1.2z" fill="#f2e9da" opacity=".7"/>
+            </symbol>
+        </defs>
+    </svg>
+
+    <div class="toast" role="status" aria-live="polite" hidden></div>
+
+    <!-- Хост Бохо: плавающий маскот → бронь -->
+    <aside class="host" data-host aria-label="Бронирование" hidden>
+        <button class="host__dismiss" type="button" data-host-dismiss aria-label="Скрыть"></button>
+        <button class="host__hit" type="button" data-booking aria-label="Забронировать стол">
+            <span class="host__bubble">Забронируем стол?</span>
+        </button>
+    </aside>
+
+    <script src="assets/js/vendor/gsap.min.js" defer></script>
+    <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
+    <script src="assets/js/vendor/ScrollSmoother.min.js" defer></script>
+    <script src="assets/js/vendor/SplitText.min.js" defer></script>
+    <script src="assets/js/hall-layout.js?v=2" defer></script>
+    <script src="assets/js/hall-render.js?v=1" defer></script>
+    <script src="assets/js/boho.js?v=32" defer></script>
+    <script src="assets/js/gallery.js?v=1" defer></script>
+    <script src="assets/js/slot-data.js?v=4" defer></script>
+    <script src="assets/js/lucky-account.js?v=1" defer></script>
+    <script src="assets/js/slot.js?v=8" defer></script>
+    <script src="assets/js/lucky-promo.js?v=4" defer></script>
+    <script src="assets/js/hall-picker.js?v=2" defer></script>
+</body>
+
+</html>

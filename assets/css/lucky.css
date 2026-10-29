@@ -1,0 +1,460 @@
+/* ==========================================================================
+   ИСПЫТАЙ УДАЧУ — вход по телефону, бонус за Telegram, реклама на первом экране
+   (lucky-account.js, lucky-promo.js). Окно входа наследует оформление окна приза.
+   ========================================================================== */
+
+/* ---------- Окно входа ---------- */
+
+.lucky-auth .prize__card { gap: 1rem; }
+.lucky-auth__badge { width: 5.5rem; }
+
+.lucky-auth__step {
+    display: grid;
+    gap: 0.9rem;
+    width: 100%;
+    text-align: center;
+}
+.lucky-auth__step[hidden] { display: none; }
+.lucky-auth__step .field { text-align: left; }
+.lucky-auth__step > .btn { justify-self: center; min-width: min(100%, 15rem); }
+
+.lucky-auth__consent {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.65rem;
+    align-items: start;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    text-align: left;
+    color: var(--cream-2);
+    cursor: pointer;
+}
+.lucky-auth__consent input {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin: 0.15rem 0 0;
+    accent-color: var(--amber);
+}
+.lucky-auth__consent a { border-bottom: 1px solid var(--line-strong); }
+.lucky-auth__consent a:hover { color: var(--amber-hi); }
+
+.lucky-auth__error {
+    min-height: 1.3em;
+    font-size: 0.8125rem;
+    color: #e6a27f;
+}
+.lucky-auth__error:empty { min-height: 0; }
+
+.lucky-auth__demo {
+    padding: 0.7rem 1rem;
+    border: 1px dashed rgb(214 161 90 / 0.6);
+    border-radius: 0.75rem;
+    background: rgb(214 161 90 / 0.08);
+    font-size: 0.875rem;
+    color: var(--amber-hi);
+}
+
+.lucky-auth__code {
+    justify-self: center;
+    width: 11rem;
+    height: 3.5rem;
+    padding: 0 0 0 0.5em;
+    border: 1px solid var(--line-strong);
+    border-radius: 0.9rem;
+    background: var(--bg);
+    color: var(--cream);
+    font-size: 1.75rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.5em;
+    text-align: center;
+}
+.lucky-auth__code:focus { outline: none; border-color: var(--amber); }
+
+.lucky-auth__link {
+    justify-self: center;
+    font-size: 0.8125rem;
+    color: var(--cream-2);
+    border-bottom: 1px solid var(--line-strong);
+    transition: color 0.2s, border-color 0.2s;
+}
+.lucky-auth__link:hover:not(:disabled) { color: var(--amber-hi); border-color: var(--amber); }
+.lucky-auth__link:disabled { color: var(--cream-3); border-color: transparent; cursor: default; }
+
+/* ---------- Карточка Telegram и строка входа ---------- */
+
+.lucky-tg {
+    display: grid;
+    gap: 0.8rem;
+    padding: 1.25rem;
+    border: 1px solid rgb(214 161 90 / 0.45);
+    border-radius: var(--radius);
+    background: linear-gradient(160deg, rgb(214 161 90 / 0.1), rgb(214 161 90 / 0.02));
+    text-align: left;
+}
+.lucky-tg:empty { display: none; }
+.lucky-tg.is-subscribed { border-style: dashed; }
+.lucky-tg--dialog { width: 100%; }
+
+.lucky-tg__title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--cream);
+}
+.lucky-tg__icon {
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0.35rem;
+    border-radius: 50%;
+    background: var(--amber);
+    fill: var(--on-amber);
+}
+.lucky-tg__text {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--cream-2);
+}
+.lucky-tg__steps {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: tg-step;
+}
+.lucky-tg__steps li {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.875rem;
+    line-height: 1.35;
+    color: var(--cream);
+    counter-increment: tg-step;
+}
+.lucky-tg__steps li::before {
+    content: counter(tg-step);
+    display: grid;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 1px solid rgb(214 161 90 / 0.6);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--amber-hi);
+}
+.lucky-tg__steps li.is-done { color: var(--cream-3); }
+.lucky-tg__steps li.is-done::before {
+    content: "✓";
+    border-color: transparent;
+    background: var(--amber);
+    color: var(--on-amber);
+}
+.lucky-tg__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+.lucky-tg__actions .btn {
+    flex: 1 1 auto;
+    min-height: 2.75rem;
+    padding: 0 1.25rem;
+}
+.lucky-tg__actions .btn:disabled { opacity: 0.45; cursor: default; }
+
+.lucky-user {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--cream-2);
+}
+.lucky-user[hidden] { display: none; }
+.lucky-user strong { font-weight: 500; color: var(--cream); }
+.lucky-user .lucky-auth__link { justify-self: auto; }
+
+/* Бонусные попытки за подписку — кремовые лампы рядом с дневными */
+.slot__lamp--bonus.is-on {
+    background: radial-gradient(circle at 40% 35%, #ffffff, var(--cream) 50%, var(--cream-2));
+    box-shadow: 0 0 8px rgb(242 233 218 / 0.6);
+}
+.slot__lamps { flex-wrap: wrap; }
+
+/* ---------- Реклама: карточка-арка ---------- */
+
+.promo {
+    --pc: 3.1rem; /* ячейка мини-барабана */
+    position: fixed;
+    right: clamp(1rem, 2.5vw, 2rem);
+    bottom: clamp(1rem, 2.5vw, 2rem);
+    z-index: 45;
+    width: 16rem;
+    transform-origin: 50% 100%;
+    will-change: transform, opacity;
+}
+.promo[hidden] { display: none; }
+
+.promo__link {
+    position: relative;
+    display: grid;
+    gap: 0.85rem;
+    justify-items: center;
+    padding: 1rem 1rem 1.25rem;
+    overflow: hidden;
+    border: 1px solid rgb(214 161 90 / 0.55);
+    border-radius: 1.25rem;
+    background: radial-gradient(120% 60% at 50% 0%, #24392e, #111b16 70%);
+    box-shadow: 0 24px 48px rgb(0 0 0 / 0.5);
+    color: var(--cream);
+    text-align: center;
+}
+.promo__link:focus-visible { outline-offset: 4px; }
+
+/* Арочное окно с огнями по дуге и барабанами внизу */
+.promo__arch {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 0.78;
+    border: 1px solid rgb(214 161 90 / 0.4);
+    border-radius: 0.75rem;
+    background:
+        repeating-conic-gradient(from -90deg at 50% 100%, rgb(214 161 90 / 0.08) 0 6deg, transparent 6deg 12deg),
+        linear-gradient(#1b2b23, #0d1511);
+}
+.promo__bulbs {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+.promo__bulb {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff6df 0 22%, var(--amber-hi) 42%, rgb(232 184 114 / 0) 72%);
+    opacity: 0.35;
+}
+.promo.is-lit .promo__bulb { animation: promo-chase 1.2s steps(1, end) infinite; }
+.promo.is-lit .promo__bulb--b { animation-delay: -0.8s; }
+.promo.is-lit .promo__bulb--c { animation-delay: -0.4s; }
+.promo.is-win .promo__bulb { animation: promo-blink 0.24s steps(1, end) infinite !important; }
+@keyframes promo-chase {
+    0% { opacity: 1; }
+    33.3%, 100% { opacity: 0.3; }
+}
+@keyframes promo-blink {
+    0% { opacity: 1; }
+    50%, 100% { opacity: 0.25; }
+}
+
+/* Название заведения — вывеской под дугой огней */
+.promo__brand {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30%;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    color: var(--cream);
+    text-shadow: 0 0 18px rgb(232 184 114 / 0.45);
+    will-change: transform, opacity;
+}
+
+.promo__reels {
+    position: absolute;
+    left: 50%;
+    bottom: 0.6rem;
+    display: flex;
+    gap: 0.3rem;
+    transform: translateX(-50%);
+}
+.promo__reel {
+    display: block;
+    width: var(--pc);
+    height: var(--pc);
+    overflow: hidden;
+    border: 1px solid rgb(214 161 90 / 0.45);
+    border-radius: 0.5rem;
+    background: linear-gradient(#060a08, #142019 50%, #060a08);
+    will-change: transform;
+}
+.promo__strip { display: block; will-change: transform; }
+.promo__cell {
+    display: grid;
+    place-items: center;
+    width: var(--pc);
+    height: var(--pc);
+}
+.promo__cell svg { width: 80%; height: 80%; }
+
+.promo__body {
+    display: grid;
+    gap: 0.4rem;
+    justify-items: center;
+}
+.promo__eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber);
+}
+.promo__title {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.1;
+}
+.promo__word { display: inline-block; white-space: nowrap; }
+.promo__char { display: inline-block; will-change: transform; }
+.promo__text {
+    max-width: 14rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--cream-2);
+}
+.promo__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    margin-top: 0.35rem;
+    padding: 0 1.6rem;
+    border-radius: 999px 999px 0.6rem 0.6rem;
+    background: linear-gradient(var(--amber-hi), var(--amber));
+    color: var(--on-amber);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 0 #8a6232;
+}
+.promo__link:hover .promo__cta { background: linear-gradient(#f0c788, var(--amber-hi)); }
+
+/* Блик пробегает по карточке, когда барабаны встают на Boho */
+.promo__shine {
+    position: absolute;
+    top: -10%;
+    bottom: -10%;
+    left: 0;
+    width: 45%;
+    background: linear-gradient(105deg, transparent 20%, rgb(255 240 210 / 0.22) 50%, transparent 80%);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.promo__close {
+    position: absolute;
+    /* на углу карточки, чтобы не закрывать огни вывески */
+    top: -0.7rem;
+    right: -0.7rem;
+    z-index: 1;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--bg-raised);
+}
+.promo__close::before,
+.promo__close::after {
+    content: "";
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: var(--cream);
+    transform: rotate(45deg);
+}
+.promo__close::after { transform: rotate(-45deg); }
+.promo__close:hover { border-color: var(--amber); }
+
+/* Телефон: компактная горизонтальная карточка над табом «Меню» */
+@media (max-width: 767px) {
+    .promo {
+        --pc: 1.65rem;
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: calc(4.5rem + env(safe-area-inset-bottom));
+        width: auto;
+    }
+    .promo__link {
+        grid-template-columns: 6.6rem 1fr;
+        align-items: center;
+        gap: 0.9rem;
+        padding: 0.75rem 2.25rem 0.75rem 0.75rem;
+        border-radius: 1.25rem;
+        text-align: left;
+    }
+    .promo__body { justify-items: start; gap: 0.25rem; }
+    .promo__title { font-size: 1.3rem; }
+    .promo__brand { top: 27%; font-size: 0.95rem; }
+    .promo__text { font-size: 0.75rem; }
+    .promo__cta { min-height: 2.1rem; margin-top: 0.2rem; padding: 0 1.1rem; }
+    .promo__bulb { width: 6px; height: 6px; margin: -3px 0 0 -3px; }
+    .promo__reels { bottom: 0.35rem; gap: 0.2rem; }
+    .promo__close { top: 0.4rem; right: 0.4rem; width: 1.75rem; height: 1.75rem; }
+}
+
+/* ---------- Ярлык рекламы за пределами первого экрана ---------- */
+
+.promo-chip {
+    position: fixed;
+    right: clamp(1rem, 2.5vw, 2rem);
+    bottom: clamp(1rem, 2.5vw, 2rem);
+    z-index: 45;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    height: 3rem;
+    padding: 0 1.2rem 0 0.75rem;
+    border: 1px solid rgb(214 161 90 / 0.55);
+    border-radius: 999px;
+    background: var(--bg-raised);
+    box-shadow: 0 14px 30px rgb(0 0 0 / 0.45);
+    color: var(--cream);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    will-change: transform, opacity;
+    transition: border-color 0.2s;
+}
+.promo-chip[hidden] { display: none; }
+.promo-chip:hover { border-color: var(--amber); }
+.promo-chip__icons { display: flex; gap: 2px; }
+.promo-chip__icons svg { width: 1.35rem; height: 1.35rem; }
+
+@media (max-width: 767px) {
+    .promo-chip { right: 1rem; bottom: 1rem; width: 3rem; padding: 0; justify-content: center; }
+    .promo-chip > span:last-child {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+    .promo-chip__icons svg:not(:first-child) { display: none; }
+    .promo-chip__icons svg { width: 1.8rem; height: 1.8rem; }
+}
+
+/* Меньше движения: огни горят ровно */
+.reduced-motion .promo__bulb { animation: none !important; opacity: 0.85; }

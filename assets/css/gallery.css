@@ -1,0 +1,142 @@
+/* ==========================================================================
+   ИНТЕРЬЕР — галерея фото зала в секции «О нас» и просмотр на весь экран (gallery.js)
+   Вертикальные фото — в арке (мотив сайта), горизонтальные — в рамке-карточке.
+   ========================================================================== */
+
+.about .intro { padding-bottom: clamp(2.5rem, 5vw, 5rem); }
+
+.interior__grid {
+    margin: 0 var(--gutter);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: clamp(7rem, 34vw, 11rem);
+    grid-auto-flow: dense;
+    gap: clamp(0.5rem, 1.2vw, 1.25rem);
+}
+@media (min-width: 1024px) {
+    .interior__grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: clamp(10rem, 13.5vw, 15rem);
+        padding: 0 2vw;
+    }
+}
+
+.interior__item { grid-row: span 2; }
+.interior__item--wide { grid-column: span 2; }
+
+.interior__open {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--surface);
+    cursor: zoom-in;
+}
+.interior__item--tall .interior__open { border-radius: 999px 999px var(--radius) var(--radius); }
+.interior__open img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s var(--ease-out);
+}
+.interior__open::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgb(214 161 90 / 0);
+    transition: box-shadow 0.4s;
+    pointer-events: none;
+}
+.interior__open:hover img { transform: scale(1.05); }
+.interior__open:hover::after { box-shadow: inset 0 0 0 1px rgb(214 161 90 / 0.6); }
+.interior__open:focus-visible { outline-offset: 4px; }
+
+/* ---------- Просмотр на весь экран ---------- */
+
+.gallery {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgb(6 9 7 / 0.96);
+    color: var(--cream);
+    overscroll-behavior: contain;
+}
+.gallery[open] {
+    display: grid;
+    place-items: center;
+    animation: gallery-in 0.35s var(--ease-out);
+}
+.gallery::backdrop { background: transparent; }
+@keyframes gallery-in { from { opacity: 0; } }
+
+.gallery__stage {
+    display: grid;
+    justify-items: center;
+    gap: 0.9rem;
+    max-width: min(92vw, 90rem);
+    margin: 0;
+    touch-action: pan-y;
+}
+.gallery__img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: calc(100dvh - 8rem);
+    border-radius: var(--radius);
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    will-change: transform, opacity;
+}
+.gallery__caption {
+    font-size: 0.875rem;
+    color: var(--cream-2);
+    text-align: center;
+}
+.gallery__count {
+    margin-left: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.08em;
+    color: var(--cream-3);
+}
+
+.gallery__nav {
+    position: fixed;
+    top: 50%;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-top: -1.625rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: rgb(20 29 24 / 0.7);
+    transition: border-color 0.2s;
+}
+.gallery__nav:hover { border-color: var(--amber); }
+.gallery__nav::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-top: 1.5px solid var(--cream);
+    border-right: 1.5px solid var(--cream);
+}
+.gallery__nav--prev { left: clamp(0.75rem, 2vw, 2rem); }
+.gallery__nav--prev::before { transform: translate(-30%, -50%) rotate(-135deg); }
+.gallery__nav--next { right: clamp(0.75rem, 2vw, 2rem); }
+.gallery__nav--next::before { transform: translate(-70%, -50%) rotate(45deg); }
+.gallery__close { position: fixed; }
+
+@media (max-width: 767px) {
+    .gallery__img { max-height: calc(100dvh - 10rem); }
+    .gallery__nav { top: auto; bottom: calc(1.25rem + env(safe-area-inset-bottom)); margin-top: 0; }
+}
