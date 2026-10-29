@@ -41,9 +41,10 @@
 *::before,
 *::after { box-sizing: border-box; }
 
+/* Без scroll-behavior: smooth — он мешает ScrollTrigger выставлять позицию прокрутки
+   (рывки на телефоне); плавность для ссылок задаётся в скриптах */
 html {
     -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
 }
 
 body {

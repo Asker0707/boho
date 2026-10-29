@@ -45,7 +45,12 @@ const scrollToTarget = (target) => {
         smoother.scrollTo(target.id === "top" ? 0 : target, !prefersReducedMotion, "top top")
         return
     }
-    target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" })
+    const behavior = prefersReducedMotion ? "auto" : "smooth"
+    if (target.id === "top") {
+        window.scrollTo({ top: 0, behavior })
+        return
+    }
+    target.scrollIntoView({ behavior })
 }
 
 let toastTimer
@@ -597,6 +602,7 @@ const initHeroScroll = () => {
         start: "top top",
         end: "+=70%",
         pin: true,
+        anticipatePin: 1,
         scrub: 0.5,
         animation: tl,
         invalidateOnRefresh: true
@@ -688,6 +694,7 @@ const initAboutPin = () => {
         endTrigger: "[data-about-scroll]",
         end: "bottom bottom",
         pin: true,
+        anticipatePin: 1,
         pinSpacing: false
     })
 }
@@ -708,6 +715,7 @@ const initTripleScroll = () => {
             start: "center center",
             end: () => `+=${distance()}`,
             pin: true,
+        anticipatePin: 1,
             scrub: true,
             invalidateOnRefresh: true
         }
@@ -894,6 +902,7 @@ const initScene = () => {
         start: "top top",
         end: () => `+=${window.innerHeight * 3.6}`,
         pin: stage,
+        anticipatePin: 1,
         scrub: 0.6,
         animation: tl,
         invalidateOnRefresh: true
@@ -946,14 +955,22 @@ const initScene = () => {
 const initMotion = () => {
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText)
 
-    smoother = ScrollSmoother.create({
-        wrapper: "#smooth-wrapper",
-        content: "#smooth-content",
-        smooth: 1.2,
-        smoothTouch: 0,
-        effects: false,
-        ignoreMobileResize: true
-    })
+    // Строка адреса на телефоне то появляется, то прячется — без этого каждый раз
+    // пересчитывались бы все сцены и страница дёргалась
+    ScrollTrigger.config({ ignoreMobileResize: true })
+
+    // ScrollSmoother только для мыши. На сенсорных экранах он сдвигал весь контент
+    // скриптом вслед за родной прокруткой — кадры расходились, страница «тряслась».
+    // Там остаётся родная прокрутка, а закреплённые сцены держатся через position: fixed
+    if (ScrollTrigger.isTouch !== 1) {
+        smoother = ScrollSmoother.create({
+            wrapper: "#smooth-wrapper",
+            content: "#smooth-content",
+            smooth: 1.2,
+            effects: false,
+            ignoreMobileResize: true
+        })
+    }
 
     playHeroIntro()
     initHeroScroll()
